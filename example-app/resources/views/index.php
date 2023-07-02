@@ -30,8 +30,12 @@
                     for ($i = 0; $i < count($datos); $i++) {
                         ?>
                         <tr>
-                            <td><?php echo $datos[$i]["nombre"]; ?></td>
-                            <td>$ <?php echo $datos[$i]["precio"]; ?></td>
+                            <td><?php echo $datos[$i]["vendedor"]; ?></td>
+                            <td><?php echo $datos[$i]["cliente"]; ?></td>
+                            <td><?php echo $datos[$i]["fecha"]; ?></td>
+                            <td><?php echo $datos[$i]["producto"]; ?></td>
+                            <td><?php echo $datos[$i]["cantidad"]; ?></td>
+                            <td>$ <?php echo $datos[$i]["total"]; ?></td>
                         </tr>
                         <?php
                     }
