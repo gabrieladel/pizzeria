@@ -7,7 +7,7 @@ class Vendedor {
 
     public function __construct() {
         $this->vendedor = array();
-        $this->db = new PDO('mysql:host=127.0.0.1:3308;dbname=pizzeria', "root", "");
+        $this->db = new PDO('mysql:host=127.0.0.1:3308;dbname=db_pizzeria', "root", "");
     }
 
     private function setNames() {
@@ -17,17 +17,17 @@ class Vendedor {
     public function getVendedores() {
 
         self::setNames();
-        $sql = "SELECT id, nombre, precio FROM vendedor";
+        $sql = "SELECT id, cuil FROM vendedor";
         foreach ($this->db->query($sql) as $res) {
             $this->vendedor[] = $res;
         }
         return $this->vendedor;
     }
 
-    public function setvendedor($nombre, $precio) {
+    public function setvendedor($cuil) {
 
         self::setNames();
-        $sql = "INSERT INTO vendedor(nombre, precio) VALUES ('" . $nombre . "', '" . $precio . "')";
+        $sql = "INSERT INTO vendedor(cuil) VALUES ('" . $cuil. "')";
         $result = $this->db->query($sql);
 
         if ($result) {
