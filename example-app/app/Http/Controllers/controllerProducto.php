@@ -1,6 +1,6 @@
 <?php
-    require_once("../models/Modelproducto.php");
+    require_once("app/models/Modelproducto.php");
     $productos = new Producto();
     $datos = $productos->getProductos();
-    require_once("../views/index.php");
+    require_once("resources/views/index.php");
 ?>

@@ -1,6 +1,6 @@
 <?php
-    require_once("../models/modelPersona.php");
+    require_once("app/models/modelPersona.php");
     $personas = new Persona();
     $datos = $personas->getPersonas();
-    require_once("../views/index.php");
+    require_once("resources/views/index.php");
 ?>

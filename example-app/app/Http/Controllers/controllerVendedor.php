@@ -1,6 +1,6 @@
 <?php
-    require_once("../models/modelVendedor.php");
+    require_once("app/models/modelVendedor.php");
     $vendedores = new Vendedor();
     $datos = $vendedores->getVendedores();
-    require_once("../views/index.php");
+    require_once("resources/views/index.php");
 ?>
