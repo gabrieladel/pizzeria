@@ -17,17 +17,17 @@ class Pedido {
     public function getPedidos() {
 
         self::setNames();
-        $sql = "SELECT id, nombre, precio FROM pedido";
+        $sql = "SELECT id, vendedor, cliente, fecha, producto , cantidad, total  FROM pedido";
         foreach ($this->db->query($sql) as $res) {
             $this->pedido[] = $res;
         }
         return $this->pedido;
     }
 
-    public function setpedido($nombre, $precio) {
+    public function setpedido( $vendedor, $cliente, $fecha, $producto, $cantidad, $total) {
 
         self::setNames();
-        $sql = "INSERT INTO pedido(nombre, precio) VALUES ('" . $nombre . "', '" . $precio . "')";
+        $sql = "INSERT INTO pedido(vendedor, cliente, fecha, producto, cantidad, total) VALUES ('" . $vendedor . "', '" . $cliente . "''" . $fecha . "', '" . $producto . "''" . $cantidad . "', '" . $total . "')";
         $result = $this->db->query($sql);
 
         if ($result) {
