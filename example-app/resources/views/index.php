@@ -11,19 +11,19 @@
     <body>
         <div class="container">
             <header class="text-center">
-            <strong class="text-danger"><u><h1>Ejemplo MVC con PHP</h1></u></strong>
+            <strong class="text-danger"><u><h1>PIZZERIA</h1></u></strong>
                 
                 <hr/>
-                <p class="lead">Creamos una base de datos de los servicios <br/>
-                    que podría realizar un taller y <br/>
+                <p class="lead">Creamos una base de datos de los productos <br/>
+                    que podría ofrecer una pizzeria y <br/>
                     operamos con ella utilizando el paradigma MVC</p>
             </header>
             <div class="col-lg-6 text-center">
                 <hr/>
-                <h3>Listado de servicios</h3>
+                <h3>VARIEDADES</h3>
                 <table class="table">
                     <tr>
-                        <td><strong>SERVICIO</strong></td>
+                        <td><strong>PRODUCTO</strong></td>
                         <td><strong>PRECIO</strong></td>
                     </tr>
                     <?php
