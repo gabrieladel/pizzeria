@@ -32,7 +32,7 @@
                         
                     </tr>
                     <?php
-                    for ($i = 0; $i < count($datos); $i++) {
+                    for ($i = 0; $i < count(@$datos); $i++) {
                         ?>
                         <tr>
                             <td><?php echo $datos[$i]["vendedor"]; ?></td>
