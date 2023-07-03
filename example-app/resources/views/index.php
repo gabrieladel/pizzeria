@@ -23,8 +23,13 @@
                 <h3>VARIEDADES</h3>
                 <table class="table">
                     <tr>
+                        <td><strong>VENDEDOR</strong></td>
+                        <td><strong>CLIENTE</strong></td>
+                        <td><strong>FECHA</strong></td>
                         <td><strong>PRODUCTO</strong></td>
-                        <td><strong>PRECIO</strong></td>
+                        <td><strong>CANTIDAD</strong></td>
+                        <td><strong>TOTAL</strong></td>
+                        
                     </tr>
                     <?php
                     for ($i = 0; $i < count($datos); $i++) {
@@ -35,7 +40,7 @@
                             <td><?php echo $datos[$i]["fecha"]; ?></td>
                             <td><?php echo $datos[$i]["producto"]; ?></td>
                             <td><?php echo $datos[$i]["cantidad"]; ?></td>
-                            <td>$ <?php echo $datos[$i]["total"]; ?></td>
+                            <td>$<?php echo $datos[$i]["total"]; ?></td>
                         </tr>
                         <?php
                     }
