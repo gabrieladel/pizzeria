@@ -19,7 +19,7 @@
                     operamos con ella utilizando el paradigma MVC</p>
             </header>
             <div class="col-lg-6 text-center">
-                <hr/>
+              <hr/>
                 <h3>VARIEDADES</h3>
                 <table class="table">
                     <tr>
