@@ -7,7 +7,7 @@ class Producto {
 
     public function __construct() {
         $this->producto = array();
-        $this->db = new PDO('mysql:host=127.0.0.1:3308;dbname=db_pizzeria', "root", "");
+        $this->db = new PDO('mysql:host=127.0.0.1:3306;dbname=db_pizzeria', "root", "");
     }
 
     private function setNames() {
