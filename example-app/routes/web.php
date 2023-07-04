@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\PersonaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,6 +19,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/index', function () {
-    return view('index');
+Route::get('personas', function () {
+    return view('/persona.index');
 });
+
+
+Route::get('/cliente', [ClienteController::class, 'index']);
+Route::get('/cliente/{cliente}', [ClienteController::class, 'show']);
+Route::get('/persona', [PersonaController::class, 'index']);
+Route::get('/persona/{personas}', [PersonaController::class, 'show']);
