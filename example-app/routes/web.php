@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\PersonaController;
+use App\Http\Controllers\PedidoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,3 +29,5 @@ Route::get('/cliente', [ClienteController::class, 'index']);
 Route::get('/cliente/{cliente}', [ClienteController::class, 'show']);
 Route::get('/persona', [PersonaController::class, 'index']);
 Route::get('/persona/{personas}', [PersonaController::class, 'show']);
+Route::get('/pedido', [PedidoController::class, 'index']);
+Route::get('/persona/{pedidos}', [PedidoController::class, 'show']);
