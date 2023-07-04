@@ -22,29 +22,30 @@
               <hr/>
                 <h3>VARIEDADES</h3>
                 <table class="table">
-                    <tr>
-                        <td><strong>VENDEDOR</strong></td>
-                        <td><strong>CLIENTE</strong></td>
-                        <td><strong>FECHA</strong></td>
-                        <td><strong>PRODUCTO</strong></td>
-                        <td><strong>CANTIDAD</strong></td>
-                        <td><strong>TOTAL</strong></td>
-                        
-                    </tr>
-                    <?php
-                    for ($i = 0; $i < count(@$datos); $i++) {
-                        ?>
+                        <thead>
                         <tr>
-                            <td><?php echo $datos[$i]["vendedor"]; ?></td>
-                            <td><?php echo $datos[$i]["cliente"]; ?></td>
-                            <td><?php echo $datos[$i]["fecha"]; ?></td>
-                            <td><?php echo $datos[$i]["producto"]; ?></td>
-                            <td><?php echo $datos[$i]["cantidad"]; ?></td>
-                            <td>$<?php echo $datos[$i]["total"]; ?></td>
+                            <th>id</th>
+                            <th>vendedor</th>
+                            <th>cliente</th>
+                            <th>fecha</th>
+                            <th>producto</th>
+                            <th>cantidad</th>
+                            <th>total</th>
                         </tr>
-                        <?php
-                    }
-                    ?>
+                    </thead>
+                    <tbody>
+                        @foreach ($listado as $item)  
+                        <tr>
+                            <td>{{$item ->id}}</td>
+                            <td>{{$item->vendedor}}</td>
+                            <td>{{$item->cliente}}</td>
+                            <td>{{$item->fecha}}</td>
+                            <td>{{$item->producto}}</td>
+                            <td>{{$item->cantidad}}</td>
+                            <td>{{$item ->total}}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
                 </table>
                 <a href="../index.php"> <i class="fa fa-arrow-circle-left"></i> Volver a la página principal</a>
                 <hr/>

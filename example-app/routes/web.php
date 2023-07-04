@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\PersonaController;
+use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\PedidoController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,8 +21,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('personas', function () {
-    return view('/persona.index');
+Route::get('pedido', function () {
+    return view('index');
 });
 
 
@@ -30,4 +31,6 @@ Route::get('/cliente/{cliente}', [ClienteController::class, 'show']);
 Route::get('/persona', [PersonaController::class, 'index']);
 Route::get('/persona/{personas}', [PersonaController::class, 'show']);
 Route::get('/pedido', [PedidoController::class, 'index']);
-Route::get('/persona/{pedidos}', [PedidoController::class, 'show']);
+Route::get('/pedido/{pedidos}', [PedidoController::class, 'show']);
+Route::get('/producto', [ProductoController::class, 'index']);
+Route::get('/producto/{productos}', [ProductoController::class, 'show']);
