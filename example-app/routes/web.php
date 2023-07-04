@@ -34,3 +34,6 @@ Route::get('/pedido', [PedidoController::class, 'index']);
 Route::get('/pedido/{pedidos}', [PedidoController::class, 'show']);
 Route::get('/producto', [ProductoController::class, 'index']);
 Route::get('/producto/{productos}', [ProductoController::class, 'show']);
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

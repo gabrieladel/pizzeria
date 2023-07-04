@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 class ProductoController extends Controller
 {
     public function index(){
@@ -10,6 +11,50 @@ class ProductoController extends Controller
     }
     public function show($id, $nombre,$imagen, $precio){
          return view('producto.show' , ['producto' =>$id, $nombre, $precio]);
+    }
+      /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     */
+ 
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Producto $producto)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, Producto $producto)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Producto $producto)
+    {
+        //
     }
 }
 ?>
