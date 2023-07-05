@@ -1,29 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>catalogo de personas</h1>
-    <table>
-        <thead>
-        <tr>
-            <th>id</th>
-            <th>nombre</th>
-            <th>telefono</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach ($listado as $item)  
-        <tr>
-            <td>{{$item ->id}}</td>
-            <td>{{$item->nombre}}</td>
-            <td>{{$item->telefono}}</td>
-        </tr>
-        @endforeach
-    </tbody>
-    </table>
-</body>
-</html>
+@extends('home')
+
+@section('content')
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <br>
+        <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#create">
+    Nuevo
+  </button>
+  <br>
+        <h3>Lista de Clientes</h3>
+        <br>
+        <div class="table-responsive">
+            <table class="table">
+                <thead class="bg-dark text-white">
+                    <tr>
+                        <th scope="col">id</th>
+                        <th scope="col">cuil</th>
+                        <th scope="col">acciones</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($cliente as $item)  
+                    <tr class="">
+                        <td scope="row">{{$item ->id}}</td>
+                        <td>{{$item->cuil}}</td>
+                        
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    @include('cliente.create')
+
+    </div>
+    <div class="col-md-2"></div>
+</div>
+
+@endsection

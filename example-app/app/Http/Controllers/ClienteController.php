@@ -1,11 +1,12 @@
 <?php
 namespace App\Http\Controllers;
-use App\Http\Controllers\Controller;
+use App\Models\Cliente;
 use Illuminate\Http\Request;
 class ClienteController extends Controller
 {
     public function index(){
-        return "controller cliente";
+        $cliente=Cliente::all();
+        return view('cliente.index',compact('cliente'));
     }
         /**
      * Show the form for creating a new resource.
@@ -20,7 +21,10 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $cliente=new Cliente;
+        $cliente->cuil=$request->input('cuil');/**name */
+        $cliente->save();
+        return redirect()->back();
     }
 
    
