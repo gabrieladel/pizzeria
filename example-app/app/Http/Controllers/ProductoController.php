@@ -8,9 +8,10 @@ class ProductoController extends Controller
     public function index(){
         $productos = DB::select('SELECT * FROM producto ');
         return view('producto.index', ['listado' => $productos]);
+       
     }
-    public function show($id, $nombre,$imagen, $precio){
-         return view('producto.show' , ['producto' =>$id, $nombre, $precio]);
+    public function show($id, $nombre, $imagen, $precio){
+         return view('producto.show' , ['producto' =>$id, $nombre, $imagen, $precio]);
     }
       /**
      * Show the form for creating a new resource.

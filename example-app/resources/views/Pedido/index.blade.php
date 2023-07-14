@@ -6,7 +6,8 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>catalogo de personas</h1>
+    
+    <h1>catalogo de pedidos</h1>
     <table>
         <thead>
         <tr>

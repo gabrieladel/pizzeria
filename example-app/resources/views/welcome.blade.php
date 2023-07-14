@@ -1,3 +1,7 @@
+@extends('home')
+
+@section('content')
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,7 +37,7 @@
                       <a class="nav-link" href="#inicio">Inicio <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="#variedad">Variedades</a>
+                      <a class="nav-link" href="producto">Variedades</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Contacto</a>
@@ -66,7 +70,7 @@
                     <div class="carousel-caption text-white d-none d-md-block">
                            <h5>Irresistibles</h5>
                            <p>Entra y mira las variedades que tenemos</p>
-                           <button type="button" class="btn btn-light">Variedades</button>
+                           <a href="producto" class="btn btn-light">ver variedades</a>
                        </div> 
                 </div>
                   <div class="carousel-item">
@@ -75,7 +79,7 @@
                         <div class="card text-white text-center p-3">
                            <h5>Irresistibles</h5>
                            <p>Entra y mira las variedades que tenemos</p>
-                           <button type="button" class="btn btn-light">Variedades</button>
+                           <a href="producto" class="btn btn-light">ver variedades</a>
                        </div> 
                        </div> 
                   <div class="carousel-item">
@@ -85,53 +89,16 @@
                      <div class="card text-white text-center p-3">
                         <h5>Irresistibles</h5>
                         <p>Entra y mira las variedades que tenemos</p>
-                        <button type="button" class="btn btn-light">Variedades</button>
+                        <a href="producto" class="btn btn-light">ver variedades</a>   
                     </div> 
                     </div> 
                 </div>
                 </div>
               </div>
             </section>
-              <section id="variedad">
-                <div class="row row-cols-1 row-cols-md-2 g-4">
-                    <div class="col">
-                      <div class="card">
-                        <img src="..." class="card-img-top" alt="...">
-                        <div class="card-body">
-                          <h5 class="card-title">Título de la tarjeta</h5>
-                          <p class="card-text">Esta es una tarjeta más larga con texto de apoyo a continuación como introducción natural a contenido adicional. Este contenido es un poco más largo.</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col">
-                      <div class="card">
-                        <img src="..." class="card-img-top" alt="...">
-                        <div class="card-body">
-                          <h5 class="card-title">Título de la tarjeta</h5>
-                          <p class="card-text">Esta es una tarjeta más larga con texto de apoyo a continuación como introducción natural a contenido adicional. Este contenido es un poco más largo.</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col">
-                      <div class="card">
-                        <img src="..." class="card-img-top" alt="...">
-                        <div class="card-body">
-                          <h5 class="card-title">Título de la tarjeta</h5>
-                          <p class="card-text">Esta es una tarjeta más larga con texto de apoyo a continuación como introducción natural a contenido adicional.</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col">
-                      <div class="card">
-                        <img src="..." class="card-img-top" alt="...">
-                        <div class="card-body">
-                          <h5 class="card-title">Título de la tarjeta</h5>
-                          <p class="card-text">Esta es una tarjeta más larga con texto de apoyo a continuación como introducción natural a contenido adicional. Este contenido es un poco más largo.</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-              </section>
+              
+                
+           
               <section id="video">
                 <h3 style="text-align: center">Asi preparamos tu pizza favorita</h3>
       <hr>
