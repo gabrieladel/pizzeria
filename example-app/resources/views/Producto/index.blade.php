@@ -59,7 +59,7 @@
     </header>
     <h1>Variedad de #Pizzas</h1>
     @foreach ($listado as $item)  
-    <div class="card-group">
+    <div class="card-deck">
     <div class="card" >
         <img class="card-img-top" alt="Card image cap"src="{{$item->imagen}}" alt="" srcset="" >
         <div class="card-body">

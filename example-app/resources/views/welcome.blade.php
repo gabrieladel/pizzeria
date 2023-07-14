@@ -100,7 +100,8 @@
                 
            
               <section id="video">
-                <h3 style="text-align: center">Asi preparamos tu pizza favorita</h3>
+                <br>
+                <h3 style="text-align: center; color:#ffffff">Asi preparamos tu pizza favorita</h3>
       <hr>
                 <iframe width="1170" height="394" src="https://www.youtube.com/embed/ywrLSeDVH5U" title="PIZZA  | Spot Publicitario Trattoria" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
               </section>
