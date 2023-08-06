@@ -35,7 +35,7 @@
                   <a class="nav-link" href="producto">Variedades</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Contacto</a>
+                    <a class="nav-link" href="/Nosotros">Contacto</a>
                   </li>
               </ul>
               <ul class="navbar-nav mr-sm-2">
@@ -59,40 +59,19 @@
     </header>
     <h1>Variedad de #Pizzas</h1>
     @foreach ($listado as $item)  
-    <div class="card-deck">
-    <div class="card" >
+  
+       <div class="card " style="width: 18rem; display: flex;" >
         <img class="card-img-top" alt="Card image cap"src="{{$item->imagen}}" alt="" srcset="" >
         <div class="card-body">
           <h5 class="card-title">{{$item->nombre}}</h5>
           <p class="card-text">{{$item->descripción}}</p>
           <p class="card-text">{{$item->precio}}</p>
-          <a href="#" class="btn btn-primary">agregar</a>
+          <a href="#" class="btn btn-primary">pedir</a>
         </div>
-      </div>
     </div>
+  
       @endforeach
-    <table>
-        <thead>
-        <tr>
-            <th>id</th>
-            <th>nombre</th>
-            <th>descripción</th>
-            <th>imagen</th>
-            <th>precio</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach ($listado as $item)  
-        <tr>
-            <td>{{$item ->id}}</td>
-            <td>{{$item->nombre}}</td>
-            <td>{{$item->descripción}}</td>
-            <td><img src="{{$item->imagen}}" alt="" srcset="" width="150" height="110"></td>
-            <td>${{$item->precio}}</td>
-        </tr>
-        @endforeach
-    </tbody>
-    </table>
+    
     <footer>
         <hr>
         <div class="row text-center" style="color: white">
