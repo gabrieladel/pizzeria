@@ -58,9 +58,10 @@
         </nav>
     </header>
     <h1>Variedad de #Pizzas</h1>
+    <div class="d-flex flex-row">
     @foreach ($listado as $item)  
-  
-       <div class="card " style="width: 18rem; display: flex;" >
+
+       <div class="card " style="width: 14rem; margin:10px " >
         <img class="card-img-top" alt="Card image cap"src="{{$item->imagen}}" alt="" srcset="" >
         <div class="card-body">
           <h5 class="card-title">{{$item->nombre}}</h5>
@@ -69,9 +70,9 @@
           <a href="#" class="btn btn-primary">pedir</a>
         </div>
     </div>
-  
+
       @endforeach
-    
+    </div>
     <footer>
         <hr>
         <div class="row text-center" style="color: white">
