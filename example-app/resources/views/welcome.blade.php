@@ -2,25 +2,9 @@
 
 @section('content')
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!-- Bootstrap CSS v5.2.1 -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
-  integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
-    crossorigin="anonymous"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"
-    integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc"
-    crossorigin="anonymous"></script>
-    <title>#Pizzas</title>
-</head>
+@extends('footer')
+
+
 <body style="background-color:rgb(144, 143, 143)">
         <header>
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -106,22 +90,7 @@
               </section>
               <section id="Nosotros">
               </section>
-              <footer>
-                <hr>
-                <div class="row text-center" style="color: white">
-                  <div>
-                    <h6>Seguinos en nuestras redes</h6>
-                    <a href="https://www.facebook.com/" target="_blanck" title="Facebook"><i class="fab fa-facebook" style="color: white"></i></a>
-                    <a href="https://www.instagram.com/" target="_blanck" title="Instagram"><i class="fab fa-instagram" style="color: white"></i></a>
-                  </div>
-                  <div>
-                    <img src="imagenes/icono.png" width="150" height="110">
-                    <h4>#Pizzas</h4>
-                  </div>
-                    <small class="d-block mb-3">© 2023</small>
-                </div>
-                </div> 
-              </footer>
+              @section('footer')
             </div>
         </div>
     </body>
