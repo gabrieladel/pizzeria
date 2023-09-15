@@ -24,7 +24,12 @@ Route::get('/', function () {
 Route::get('pedido', function () {
     return view('index');
 });
-
+Route::get('carrito', function () {
+    return view('Carrito/index');
+});
+Route::get('contacto', function () {
+    return view('contacto');
+});
 
 Route::get('/cliente', [ClienteController::class, 'index']);
 Route::get('/cliente/{cliente}', [ClienteController::class, 'show']);

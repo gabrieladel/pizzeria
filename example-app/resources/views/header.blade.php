@@ -1,6 +1,6 @@
 @yield('header')
 
-   <header>
+<header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -18,7 +18,7 @@
               <a class="nav-link" href="producto">Variedades</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Contacto</a>
+                <a class="nav-link" href="contacto">Contacto</a>
               </li>
           </ul>
           <ul class="navbar-nav mr-sm-2">

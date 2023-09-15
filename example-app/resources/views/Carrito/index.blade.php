@@ -1,5 +1,6 @@
-@extends('home')
 @extends('footer')
+@extends('home')
+
 @section('content')
 <body>
     <header>
@@ -31,7 +32,7 @@
                     <i class="fa-solid fa-cart-shopping" style="color: #ffffff;"> Carrito</i>
                 @else
                     <a href="{{ route('login') }}" class="font-semibold " style="color: white">Log in</a>
-
+    
                     @if (Route::has('register'))
                         <a href="{{ route('register') }}" class="ml-4 font-semibold" style="color: white"  >Register</a>
                     @endif
@@ -42,28 +43,34 @@
         </ul>
         </nav>
     </header>
-    <h1 style="text-align: center; color:rgb(127, 26, 46)">Variedad de #Pizzas</h1>
-    <br>
-
-    <div class="d-flex align-content-stretch flex-wrap" style="text-align: center;">
-    @foreach ($listado as $item)  
-    <div class="card-group" style="margin-left: 50px;">
-       <div class="card " style="width: 18rem; margin:10px " >
-        <img class="card-img-top" alt="Card image cap"src="{{$item->imagen}}" style="width: 18rem; height:12rem;"alt="" srcset="" >
-        <div class="card-body">
-          <h5 class="card-title">{{$item->nombre}}</h5>
-          <p class="card-text">{{$item->descripción}}</p>
-          
-          <p class="card-text">${{$item->precio}}</p>
-          <br>
-          <div class="position-absolute fixed-bottom mb-2">
-          <a href="carrito" class="btn btn-secondary btn-lg btn-block">Pedir</a>
-        </div>
-        </div>
-    </div>
-  </div>
-      @endforeach
-    </div>
+    
+    <h1>Carrito de compra</h1>
+    {{-- <table class="carrito">
+        <thead>
+        <tr>
+            <th>id</th>
+            <th>vendedor</th>
+            <th>cliente</th>
+            <th>fecha</th>
+            <th>producto</th>
+            <th>cantidad</th>
+            <th>total</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach ($listado as $item)  
+        <tr>
+            <td>{{$item ->id}}</td>
+            <td>{{$item->vendedor}}</td>
+            <td>{{$item->cliente}}</td>
+            <td>{{$item->fecha}}</td>
+            <td>{{$item->producto}}</td>
+            <td>{{$item->cantidad}}</td>
+            <td>{{$item ->total}}</td>
+        </tr>
+        @endforeach
+    </tbody>
+    </table> --}}
     @section('footer')
 </body>
 </html>
