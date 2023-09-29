@@ -1,9 +1,9 @@
-@extends('footer')
+{{-- @extends('footer') --}}
 @extends('home')
 
 @section('content')
 <body>
-    <header>
+    {{-- <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
@@ -43,7 +43,7 @@
         </ul>
         </nav>
     </header>
-    
+     --}}
     <h1>Carrito de compra</h1>
     {{-- <table class="carrito">
         <thead>
@@ -71,6 +71,6 @@
         @endforeach
     </tbody>
     </table> --}}
-    @section('footer')
+   {{--  @section('footer') --}}
 </body>
 </html>

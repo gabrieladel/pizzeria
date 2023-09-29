@@ -1,8 +1,5 @@
 
-
-@extends('footer')
-
-@extends('home')
+@extends('layouts.app')
 
 @section('content')
 <header>
@@ -83,7 +80,6 @@
 
 </section>
 
-        @section('footer')
         
             
 

@@ -1,8 +1,11 @@
-@extends('home')
-@extends('footer')
+
+@yield('producto')
+@extends('layouts.app')
+
 @section('content')
+
 <body>
-    <header>
+     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
@@ -41,7 +44,7 @@
           </div>
         </ul>
         </nav>
-    </header>
+    </header> 
     <h1 style="text-align: center; color:rgb(127, 26, 46)">Variedad de #Pizzas</h1>
     <br>
 
@@ -64,6 +67,6 @@
   </div>
       @endforeach
     </div>
-    @section('footer')
+{{--     @section('footer') --}}
 </body>
 </html>
