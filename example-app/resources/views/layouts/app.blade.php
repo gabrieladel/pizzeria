@@ -46,7 +46,7 @@
     </script>
 </head>
 @yield('content')
-<body style="background-color:rgb(144, 143, 143)">
+<body>
 
     {{-- <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -98,7 +98,7 @@
     </div>
     <footer>
       <hr>
-      <div class="row text-center" style="color: white">
+      <div class="row text-center" style="background-color: rgb(107, 107, 138); color:white">
           <div>
               <h6>Seguinos en nuestras redes</h6>
               <a href="https://www.facebook.com/" target="_blanck" title="Facebook"><i class="fab fa-facebook"

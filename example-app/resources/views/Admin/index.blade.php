@@ -6,7 +6,7 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>catalogo de vendedores</h1>
+    <h1>catalogo de admin</h1>
     <table>
         <thead>
         <tr>

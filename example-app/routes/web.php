@@ -31,6 +31,7 @@ Route::get('contacto', function () {
     return view('contacto');
 });
 
+
 Route::get('/cliente', [ClienteController::class, 'index']);
 Route::get('/cliente/{cliente}', [ClienteController::class, 'show']);
 Route::get('/persona', [PersonaController::class, 'index']);
@@ -44,3 +45,16 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource('home', ClienteController::class);
 Route::resource('home', ProductoController::class);
+
+Route::get( 'pizzas', function () {
+    return view('pizzas');
+});
+Route::get( 'empanadas', function () {
+    return view('empanadas');
+});
+Route::get( 'bebidas', function () {
+    return view('bebidas');
+});
+/* Route::get( 'admin', function () {
+    return view('admin');
+}); */

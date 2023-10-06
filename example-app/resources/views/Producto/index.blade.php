@@ -68,5 +68,6 @@
       @endforeach
     </div>
 {{--     @section('footer') --}}
+
 </body>
 </html>

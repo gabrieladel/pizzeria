@@ -10,8 +10,8 @@ class ProductoController extends Controller
         return view('producto.index', ['listado' => $productos]);
        
     }
-    public function show($id, $nombre, $imagen, $precio){
-         return view('producto.show' , ['producto' =>$id, $nombre, $imagen, $precio]);
+    public function show($id, $categoria, $nombre, $imagen, $precio){
+         return view('producto.show' , ['producto' =>$id, $categoria, $nombre, $imagen, $precio]);
     }
       /**
      * Show the form for creating a new resource.
