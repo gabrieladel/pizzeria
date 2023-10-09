@@ -3,27 +3,27 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-class ProductoController extends Controller
+class CategoriaController extends Controller
 {
     public function index(){
-        $productos = DB::select('SELECT * FROM producto ');
-        return view('producto.index',  ['listado' => $productos]);
+        $categorias = DB::select('SELECT * FROM categoria ');
+        return view('categoria.index',  ['listado' => $categorias]);
        
     }
-    public function show($id, $categoria, $nombre, $imagen, $precio){
-         return view('producto.show' , ['producto' =>$id, $categoria, $nombre, $imagen, $precio]);
+    public function show($id,  $nombre){
+         return view('categoria.show' , ['categoria' =>$id, $nombre]);
     }
       /**
      * Show the form for creating a new resource.
      */
     public function listar(){
-        $productos = DB::select('SELECT * FROM producto ');
-        return view('producto.verProductos',  ['listado' => $productos]);
+        $categorias = DB::select('SELECT * FROM categoria ');
+        return view('categoria.vercategorias',  ['listado' => $categorias]);
        
     }
     public function create()
     {
-     return view('producto.crearProducto');
+        //
     }
 
     /**
@@ -42,7 +42,7 @@ class ProductoController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(ProductoController $producto)
+    public function edit(CategoriaController $categoria)
     {
         //
     }
@@ -50,7 +50,7 @@ class ProductoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, ProductoController $producto)
+    public function update(Request $request, CategoriaController $categoria)
     {
         //
     }
@@ -58,7 +58,7 @@ class ProductoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ProductoController $producto)
+    public function destroy(CategoriaController $categoria)
     {
         //
     }

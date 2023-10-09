@@ -40,21 +40,15 @@ Route::get('/pedido', [PedidoController::class, 'index']);
 Route::get('/pedido/{pedidos}', [PedidoController::class, 'show']);
 Route::get('/producto', [ProductoController::class, 'index']);
 Route::get('/producto/{productos}', [ProductoController::class, 'show']);
+Route::get('/verProductos', [ProductoController::class, 'listar']);
+Route::get('/crearProducto', [ProductoController::class, 'create']);
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource('home', ClienteController::class);
 Route::resource('home', ProductoController::class);
 
-Route::get( 'pizzas', function () {
-    return view('pizzas');
-});
-Route::get( 'empanadas', function () {
-    return view('empanadas');
-});
-Route::get( 'bebidas', function () {
-    return view('bebidas');
-});
+
 /* Route::get( 'admin', function () {
     return view('admin');
 }); */

@@ -327,52 +327,19 @@ return [
             'text'    => 'Productos',
             'icon'    => 'fas fa-fw fa-share',
             'submenu' => [
-                [
-                    'text' => 'Pizzas',
-                    'url'  => '#',
-                    'submenu' => [
+                
                         [
-                            'text' => 'Listado de pizzas',
-                            'url'  => 'pizzas',
+                            'text' => 'Listado de productos',
+                            'url'  => 'verProductos',
                         ],
                         [
-                            'text' => 'Registrar pizzas',
-                            'url'  => '#',
+                            'text' => 'Registrar productos',
+                            'url'  => 'crearProducto',
                         ],
                     ],
                 ],
-                [
-                    'text'    => 'Emapanadas',
-                    'url'     => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'Listado de empanadas',
-                            'url'  => 'empanadas',
-                        ],
-                        [
-                            'text'    => 'Registrar empanadas',
-                            'url'     => '#',
-                            
-                        ],
-                    ],
-                ],
-                [
-                    'text' => 'bebidas',
-                    'url'  => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'Listado de bebidas',
-                            'url'  => 'bebidas',
-                        ],
-                        [
-                            'text' => 'Registrar bebidas',
-                            'url'  => '#',
-                        ],
-                    ],
-                ],
+               
             ],
-        ]
-    ],
 
     /*
     |--------------------------------------------------------------------------

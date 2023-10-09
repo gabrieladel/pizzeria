@@ -7,11 +7,9 @@
 @stop
 
 @section('content')
-    <p>Lista de bebidas.</p>
+    <p>Bienvenido al panel administrativo.</p>
 @stop
-{{-- @extends('Producto')
-@section('producto')
-@stop --}}
+
 @section('css')
     <link rel="stylesheet" href="/css/admin_custom.css">
 @stop
