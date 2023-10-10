@@ -16,6 +16,13 @@
     @if (session("incorrecto"))
     <div class="alert alert-danger">{{session("incorrecto")}}</div>
     @endif
+
+    <script>
+        var res=function(){
+            var not=confirm("¿Estas seguro de eliminar?");
+            return not;
+        }
+    </script>
     <!-- Modal de registro de datos-->
     <div class="modal fade" id="modalRegistrar" tabindex="-1" aria-labelledby="exampleModalLabel"
                                 aria-hidden="true">
@@ -100,7 +107,7 @@
                                         class="fas fa-edit"></i></a>
                             </td>
                             <td>
-                                <a href="" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
+                                <a href="{{route("producto.delete", $item->id)}}" onclick="return res()" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
                             </td>
 
                             <!-- Modal de modificar datos-->
@@ -114,7 +121,8 @@
                                                 aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <form>
+                                            <form action="{{route("producto.update")}}" method="post">
+                                                @csrf
                                                 <div class="mb-3">
                                                     <label for="exampleInputEmail1" class="form-label">id del producto</label>
                                                     <input type="text" class="form-control" id="exampleInputEmail1"

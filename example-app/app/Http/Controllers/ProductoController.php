@@ -42,42 +42,40 @@ class ProductoController extends Controller
      }
      
     }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function update(Request $request){
+        try { 
+           $sql = DB::update(" update producto set categoria_id=?,nombre=?,imagen=?,descripción=?,precio=? where id=? ",[
+               $request->txtcategoria,
+               $request->txtnombre,
+               $request->txtimagen,
+               $request->txtdescripcion,
+               $request->txtprecio,
+               $request->txtid
+            ]);
+            if ($sql==0){
+                $sql=1;
+            }
+        } catch (\Throwable $th) {
+           $sql= 0 ;
+       } 
+        if ($sql == true) {
+           return back()->with("correcto","Producto modificado correctamente");
+        } else {
+           return back()->with("incorrecto","Error al modificar");
+        }
+   }
+    public function delete($id)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
- 
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(ProductoController $producto)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, ProductoController $producto)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(ProductoController $producto)
-    {
-        //
+        try { 
+            $sql = DB::delete(" delete from producto where id=$id ");
+         } catch (\Throwable $th) {
+            $sql= 0 ;
+        } 
+         if ($sql == true) {
+            return back()->with("correcto","Producto eliminado correctamente");
+         } else {
+            return back()->with("incorrecto","Error al eliminar");
+         }
     }
 }
 ?>

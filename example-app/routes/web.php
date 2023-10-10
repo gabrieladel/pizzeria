@@ -40,7 +40,7 @@ Route::get('/pedido', [PedidoController::class, 'index']);
 Route::get('/pedido/{pedidos}', [PedidoController::class, 'show']);
 Route::get('/producto', [ProductoController::class, 'index']);
 Route::get('/producto/{productos}', [ProductoController::class, 'show']);
-Route::get('/verProductos', [ProductoController::class, 'listar']);
+
 Route::get('/crearProducto', [ProductoController::class, 'create']);
 Auth::routes();
 
@@ -52,6 +52,10 @@ Route::resource('home', ProductoController::class);
 /* Route::get( 'admin', function () {
     return view('admin');
 }); */
-
+Route::get('/verProductos', [ProductoController::class, 'listar']);
 //ruta para añadir un nuevo producto
-Route::post('/verProductos', [ProductoController::class, 'create'])->name("producto.create");
+Route::post('/registrarProductos', [ProductoController::class, 'create'])->name("producto.create");
+//ruta para modificar un producto 
+Route::post('/modificarProductos', [ProductoController::class, 'update'])->name("producto.update");
+//ruta para eliminar un producto 
+Route::get('/eliminarProductos-{id}', [ProductoController::class, 'delete'])->name("producto.delete");
