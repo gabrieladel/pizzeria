@@ -52,3 +52,6 @@ Route::resource('home', ProductoController::class);
 /* Route::get( 'admin', function () {
     return view('admin');
 }); */
+
+//ruta para añadir un nuevo producto
+Route::post('/verProductos', [ProductoController::class, 'create'])->name("producto.create");

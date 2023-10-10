@@ -10,51 +10,25 @@
 @section('content')
 
     <h2>Lista de Productos.</h2>
-    <div class="d-flex align-content-stretch flex-wrap" style="text-align: center;">
-        <div class="p-5 table-responsive">
-          <button class="btn btn-primary">Añadir producto</button>
-            <table class="table">
-                <thead class="table-dark">
-                    <tr>
-                        <th scope="col">nombre</th>
-                        <th scope="col">categoria</th>
-                        <th scope="col">imagen</th>
-                        <th scope="col">descipcion</th>
-                        <th scope="col">precio</th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    @foreach ($listado as $item)
-                        <tr>
-                            <td>{{ $item->nombre }}</td>
-                            <td>{{ $item->categoria_id }}</td>
-                            <td><img src="{{ $item->imagen }}" style="width: 4rem; height:2rem;"alt=""
-                                    srcset=""></td>
-                            <td>{{ $item->descripción }}</td>
-                            <td>${{ $item->precio }}</td>
-                            <td><a href="" data-bs-toggle="modal"
-                                    data-bs-target="#exampleModal"class="btn btn-warning btn-sm"><i
-                                        class="fas fa-edit"></i></a>
-                            </td>
-                            <td>
-                                <a href="" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
-                            </td>
-
-                            <!-- Modal de modificar datos-->
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    @if (session("correcto"))
+    <div class="alert alert-success">{{session("correcto")}}</div>
+    @endif
+    @if (session("incorrecto"))
+    <div class="alert alert-danger">{{session("incorrecto")}}</div>
+    @endif
+    <!-- Modal de registro de datos-->
+    <div class="modal fade" id="modalRegistrar" tabindex="-1" aria-labelledby="exampleModalLabel"
                                 aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Modificar datos</h1>
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Registrar nuevos Productos</h1>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                 aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <form>
+                                            <form action="{{route("producto.create")}}" method="post">
+                                                @csrf
                                                 <div class="mb-3">
                                                     <label for="exampleInputEmail1" class="form-label">Nombre del producto</label>
                                                     <input type="text" class="form-control" id="exampleInputEmail1"
@@ -62,7 +36,7 @@
                                                 </div>
                                                 <div class="mb-3">
                                                   <label for="exampleInputEmail1" class="form-label">Categoria del producto</label>
-                                                  <input type="text" class="form-control" id="exampleInputEmail1"
+                                                  <input type="number" class="form-control" id="exampleInputEmail1"
                                                       aria-describedby="emailHelp" name="txtcategoria">
                                               </div>
                                               <div class="mb-3">
@@ -77,8 +51,99 @@
                                           </div>
                                           <div class="mb-3">
                                             <label for="exampleInputEmail1" class="form-label">Precio del producto</label>
-                                            <input type="text" class="form-control" id="exampleInputEmail1"
+                                            <input type="number" class="form-control" id="exampleInputEmail1"
                                                 aria-describedby="emailHelp" name="txtprecio">
+                                        </div>
+                                
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Cerrar</button>
+                                                    <button type="submit" class="btn btn-primary">Registrar</button>
+                                                </div>
+                                            </form>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+    <div class="d-flex align-content-stretch flex-wrap" style="text-align: center;">
+        <div class="p-5 table-responsive">
+          <button class="btn btn-primary" data-bs-toggle="modal"
+          data-bs-target="#modalRegistrar">Añadir producto</button>
+          
+            <table class="table">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">id</th>
+                        <th scope="col">nombre</th>
+                        <th scope="col">categoria</th>
+                        <th scope="col">imagen</th>
+                        <th scope="col">descipcion</th>
+                        <th scope="col">precio</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach ($listado as $item)
+                        <tr>
+                            <td>{{ $item->id }}</td>
+                            <td>{{ $item->nombre }}</td>
+                            <td>{{ $item->categoria_id }}</td>
+                            <td><img src="{{ $item->imagen }}" style="width: 4rem; height:2rem;"alt=""
+                                    srcset=""></td>
+                            <td>{{ $item->descripción }}</td>
+                            <td>${{ $item->precio }}</td>
+                            <td><a href="" data-bs-toggle="modal"
+                                    data-bs-target="#modalEditar{{ $item->id }}"class="btn btn-warning btn-sm"><i
+                                        class="fas fa-edit"></i></a>
+                            </td>
+                            <td>
+                                <a href="" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
+                            </td>
+
+                            <!-- Modal de modificar datos-->
+                            <div class="modal fade" id="modalEditar{{ $item->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Modificar datos</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form>
+                                                <div class="mb-3">
+                                                    <label for="exampleInputEmail1" class="form-label">id del producto</label>
+                                                    <input type="text" class="form-control" id="exampleInputEmail1"
+                                                        aria-describedby="emailHelp" name="txtid" value="{{ $item->id }}">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="exampleInputEmail1" class="form-label">Nombre del producto</label>
+                                                    <input type="text" class="form-control" id="exampleInputEmail1"
+                                                        aria-describedby="emailHelp" name="txtnombre" value="{{ $item->nombre }}">
+                                                </div>
+                                                <div class="mb-3">
+                                                  <label for="exampleInputEmail1" class="form-label">Categoria del producto</label>
+                                                  <input type="text" class="form-control" id="exampleInputEmail1"
+                                                      aria-describedby="emailHelp" name="txtcategoria" value="{{ $item->categoria_id }}">
+                                              </div>
+                                              <div class="mb-3">
+                                                <label for="exampleInputEmail1" class="form-label">Imagen del producto</label>
+                                                <input type="text" class="form-control" id="exampleInputEmail1"
+                                                    aria-describedby="emailHelp" name="txtimagen" value="{{ $item->imagen }}">
+                                            </div>
+                                            <div class="mb-3">
+                                              <label for="exampleInputEmail1" class="form-label">Descripcion del producto</label>
+                                              <input type="text" class="form-control" id="exampleInputEmail1"
+                                                  aria-describedby="emailHelp" name="txtdescripcion" value="{{ $item->descripción }}">
+                                          </div>
+                                          <div class="mb-3">
+                                            <label for="exampleInputEmail1" class="form-label">Precio del producto</label>
+                                            <input type="text" class="form-control" id="exampleInputEmail1"
+                                                aria-describedby="emailHelp" name="txtprecio" value="{{ $item->precio }}">
                                         </div>
                                 
                                                 <div class="modal-footer">

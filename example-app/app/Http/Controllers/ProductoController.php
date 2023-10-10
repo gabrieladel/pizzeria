@@ -21,9 +21,26 @@ class ProductoController extends Controller
         return view('producto.verProductos',  ['listado' => $productos]);
        
     }
-    public function create()
+    public function create(Request $request)
     {
-     return view('producto.crearProducto');
+     try { 
+        $sql = DB::insert(" insert into producto(id,categoria_id,nombre,imagen,descripción,precio)values(null,?,?,?,?,?) ",[
+            $request->txtid,
+            $request->txtcategoria,
+            $request->txtnombre,
+            $request->txtimagen,
+            $request->txtdescripcion,
+            $request->txtprecio
+         ]);
+     } catch (\Throwable $th) {
+        $sql= 0 ;
+    } 
+     if ($sql == true) {
+        return back()->with("correcto","Producto registrado correctamente");
+     } else {
+        return back()->with("incorrecto","Error al registrar");
+     }
+     
     }
 
     /**
