@@ -49,9 +49,9 @@ Route::resource('home', ClienteController::class);
 Route::resource('home', ProductoController::class);
 
 
-/* Route::get( 'admin', function () {
-    return view('admin');
-}); */
+ Route::get( '/admin', function () {
+    return view('panelAdmin');
+}); 
 Route::get('/verProductos', [ProductoController::class, 'listar']);
 //ruta para añadir un nuevo producto
 Route::post('/registrarProductos', [ProductoController::class, 'create'])->name("producto.create");
