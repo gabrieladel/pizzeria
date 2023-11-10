@@ -47,7 +47,13 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource('home', ClienteController::class);
 Route::resource('home', ProductoController::class);
+//Route::post('/cart-add',    'CartController@add')->name('cart.add');
 
+//Route::get('/cart-checkout','CartController@cart')->name('cart.checkout');
+
+//Route::post('/cart-clear',  'CartController@clear')->name('cart.clear');
+
+//Route::post('/cart-removeitem',  'CartController@removeitem')->name('cart.removeitem');
 
  Route::get( '/admin', function () {
     return view('panelAdmin');

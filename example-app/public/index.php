@@ -1,5 +1,9 @@
 <?php
+if(isset($_SESSION["carrito"])){
 
+    $carrito_mio=$_SESSION["carrito"];
+    
+    }
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Http\Request;
 
