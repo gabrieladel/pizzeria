@@ -317,12 +317,19 @@ return [
             'text' => 'Admin',
             'url'  => 'admin',
             'icon' => 'fas fa-fw fa-user',
+            'submenu' => [
+                
+                [
+                    'text' => 'Listado de Admin',
+                    'url'  => 'verAdmin',
+                ],
+            ],
         ],
-        [
+        /* [
             'text' => 'change_password',
             'url'  => 'admin/settings',
             'icon' => 'fas fa-fw fa-lock',
-        ],
+        ], */
         [
             'text'    => 'Productos',
             'icon'    => 'fas fa-fw fa-share',

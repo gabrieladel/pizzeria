@@ -43,22 +43,22 @@
                                                 </div>
                                                 <div class="mb-3">
                                                   <label for="exampleInputEmail1" class="form-label">Categoria del producto</label>
-                                                  <input type="number" class="form-control" id="exampleInputEmail1"
+                                                  <input type="number" class="form-control" id="exampleInputEmail2"
                                                       aria-describedby="emailHelp" name="txtcategoria">
                                               </div>
                                               <div class="mb-3">
                                                 <label for="exampleInputEmail1" class="form-label">Imagen del producto</label>
-                                                <input type="text" class="form-control" id="exampleInputEmail1"
+                                                <input type="text" class="form-control" id="exampleInputEmail3"
                                                     aria-describedby="emailHelp" name="txtimagen">
                                             </div>
                                             <div class="mb-3">
                                               <label for="exampleInputEmail1" class="form-label">Descripcion del producto</label>
-                                              <input type="text" class="form-control" id="exampleInputEmail1"
+                                              <input type="text" class="form-control" id="exampleInputEmail4"
                                                   aria-describedby="emailHelp" name="txtdescripcion">
                                           </div>
                                           <div class="mb-3">
                                             <label for="exampleInputEmail1" class="form-label">Precio del producto</label>
-                                            <input type="number" class="form-control" id="exampleInputEmail1"
+                                            <input type="number" class="form-control" id="exampleInputEmail5"
                                                 aria-describedby="emailHelp" name="txtprecio">
                                         </div>
                                 
@@ -126,32 +126,32 @@
                                                 <div class="mb-3">
                                                     <label for="exampleInputEmail1" class="form-label">id del producto</label>
                                                     <input type="text" class="form-control" id="exampleInputEmail1"
-                                                        aria-describedby="emailHelp" name="txtid" value="{{ $item->id }}">
+                                                        aria-describedby="txtHelp" name="txtid" value="{{ $item->id }}">
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="exampleInputEmail1" class="form-label">Nombre del producto</label>
-                                                    <input type="text" class="form-control" id="exampleInputEmail1"
-                                                        aria-describedby="emailHelp" name="txtnombre" value="{{ $item->nombre }}">
+                                                    <input type="text" class="form-control" id="exampleInputEmail2"
+                                                        aria-describedby="txtHelp" name="txtnombre" value="{{ $item->nombre }}">
                                                 </div>
                                                 <div class="mb-3">
                                                   <label for="exampleInputEmail1" class="form-label">Categoria del producto</label>
-                                                  <input type="text" class="form-control" id="exampleInputEmail1"
-                                                      aria-describedby="emailHelp" name="txtcategoria" value="{{ $item->categoria_id }}">
+                                                  <input type="text" class="form-control" id="exampleInputEmail3"
+                                                      aria-describedby="txtHelp" name="txtcategoria" value="{{ $item->categoria_id }}">
                                               </div>
                                               <div class="mb-3">
                                                 <label for="exampleInputEmail1" class="form-label">Imagen del producto</label>
-                                                <input type="text" class="form-control" id="exampleInputEmail1"
-                                                    aria-describedby="emailHelp" name="txtimagen" value="{{ $item->imagen }}">
+                                                <input type="text" class="form-control" id="exampleInputEmail4"
+                                                    aria-describedby="txtHelp" name="txtimagen" value="{{ $item->imagen }}">
                                             </div>
                                             <div class="mb-3">
                                               <label for="exampleInputEmail1" class="form-label">Descripcion del producto</label>
-                                              <input type="text" class="form-control" id="exampleInputEmail1"
-                                                  aria-describedby="emailHelp" name="txtdescripcion" value="{{ $item->descripción }}">
+                                              <input type="text" class="form-control" id="exampleInputEmail5"
+                                                  aria-describedby="txtHelp" name="txtdescripcion" value="{{ $item->descripción }}">
                                           </div>
                                           <div class="mb-3">
                                             <label for="exampleInputEmail1" class="form-label">Precio del producto</label>
-                                            <input type="text" class="form-control" id="exampleInputEmail1"
-                                                aria-describedby="emailHelp" name="txtprecio" value="{{ $item->precio }}">
+                                            <input type="text" class="form-control" id="exampleInputEmail6"
+                                                aria-describedby="txtHelp" name="txtprecio" value="{{ $item->precio }}">
                                         </div>
                                 
                                                 <div class="modal-footer">
@@ -178,9 +178,9 @@
 {{-- @extends('Producto')
 @section('producto')
 @stop --}}
-@section('css')
+{{-- @section('css')
     <link rel="stylesheet" href="/css/admin_custom.css">
-@stop
+@stop --}}
 
 @section('js')
     <script>

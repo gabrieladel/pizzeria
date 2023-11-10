@@ -7,13 +7,14 @@
 <body>
      <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">
+                <img src="imagenes/icono.png" width="150" height="110" alt="">#Pizzas
+              </a>
+        
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
-                <a class="navbar-brand" href="#">
-                  <img src="imagenes/icono.png" width="150" height="110" alt="">#Pizzas
-                </a>
-          
+              
             <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
               <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li class="nav-item active">
@@ -67,9 +68,9 @@
 
     <div class="d-flex align-content-stretch flex-wrap" style="text-align: center;">
     @foreach ($listado as $item)  
-    <div class="card-group" style="margin-left: 50px;">
-       <div class="card " style="width: 18rem; margin:10px " >
-        <img class="card-img-top" alt="Card image cap"src="{{$item->imagen}}" style="width: 18rem; height:12rem;"alt="" srcset="" >
+    <div class="card-group" style="margin-left: 40px;">
+       <div class="card " style="width: 12rem; margin:10px " >
+        <img class="card-img-top" alt="Card image cap"src="{{$item->imagen}}" style="width: 12rem; height:10rem;"alt="" srcset="" >
         <div class="card-body">
           <h5 class="card-title">{{$item->nombre}}</h5>
           <p class="card-text">{{$item->descripción}}</p>
