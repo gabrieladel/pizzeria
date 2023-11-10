@@ -21,8 +21,8 @@ Route::get('contacto', function () {
     return view('contacto');
 });
 
-Route::get('/cliente', [ClienteController::class, 'index']);
-Route::get('/cliente/{cliente}', [ClienteController::class, 'show']);
+/* Route::get('/cliente', [ClienteController::class, 'index']);
+Route::get('/cliente/{cliente}', [ClienteController::class, 'show']); */
 Route::get('/persona', [PersonaController::class, 'index']);
 Route::get('/persona/{personas}', [PersonaController::class, 'show']);
 Route::get('/pedido', [PedidoController::class, 'index']);
@@ -32,7 +32,7 @@ Route::get('/producto/{productos}', [ProductoController::class, 'show']);
 
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::resource('home', ClienteController::class);
+/* Route::resource('home', ClienteController::class); */
 Route::resource('home', ProductoController::class);
 
 /* Route::group(['middleware' => 'admin'], function () { */
