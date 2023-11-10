@@ -24,8 +24,7 @@ class ProductoController extends Controller
     public function create(Request $request)
     {
      try { 
-        $sql = DB::insert(" insert into producto(id,categoria_id,nombre,imagen,descripción,precio)values(null,?,?,?,?,?) ",[
-            $request->txtid,
+        $sql=DB::insert(" insert into producto(categoria_id,nombre,imagen,descripción,precio)values(?,?,?,?,?) ",[
             $request->txtcategoria,
             $request->txtnombre,
             $request->txtimagen,
