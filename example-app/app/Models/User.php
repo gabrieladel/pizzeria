@@ -43,16 +43,16 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-    public function role(){
+    public function role()
+    {
         return $this->belongsTo(Role::class);
     }
 
-public function esAdmin () {
+    public function esAdmin()
+    {
 
-     foreach ($this->role()->get() as $role)
-        {
-            if ($role->nombre_rol == 'Administrador')
-            {
+        foreach ($this->role()->get() as $role) {
+            if ($role->nombre_rol == 'Administrador') {
                 return true;
             }
         }
