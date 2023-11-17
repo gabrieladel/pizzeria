@@ -1,10 +1,10 @@
-@extends('layouts.blade.app')
+@extends('layouts.app')
 
 @section('content')
     <div class="container" style="margin-top: 80px">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/">Pizzeria</a></li>
+                <li class="breadcrumb-item"><a href="/">Tienda</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Cart</li>
             </ol>
         </nav>
@@ -40,8 +40,8 @@
                 @if(\Cart::getTotalQuantity()>0)
                     <h4>{{ \Cart::getTotalQuantity()}} Producto(s) en el carrito</h4><br>
                 @else
-                    <h4>No hay Producto(s) en tu carrito</h4><br>
-                    <a href="/" class="btn btn-dark">Continue en la Pagina</a>
+                    <h4>No Product(s) In Your Cart</h4><br>
+                    <a href="/" class="btn btn-dark">Continue en la tienda</a>
                 @endif
 
                 @foreach($cartCollection as $item)
@@ -51,10 +51,10 @@
                         </div>
                         <div class="col-lg-5">
                             <p>
-                                <b><a href="/shop/{{ $item->attributes->slug }}">{{ $item->nombre }}</a></b><br>
-                                <b>Precio: </b>${{ $item->precio }}<br>
-                                <b>Sub Total: </b>${{ \Cart::get($item->id)->getPrecioSum() }}<br>
-                                {{--                                <b>With Discount: </b>${{ \Cart::get($item->id)->getPrecioSumWithConditions() }}--}}
+                                <b><a href="/shop/{{ $item->attributes->slug }}">{{ $item->name }}</a></b><br>
+                                <b>Price: </b>${{ $item->price }}<br>
+                                <b>Sub Total: </b>${{ \Cart::get($item->id)->getPriceSum() }}<br>
+                                {{--                                <b>With Discount: </b>${{ \Cart::get($item->id)->getPriceSumWithConditions() }}--}}
                             </p>
                         </div>
                         <div class="col-lg-4">
@@ -93,57 +93,10 @@
                         </ul>
                     </div>
                     <br><a href="/" class="btn btn-dark">Continue en la tienda</a>
-                    <a href="/checkout" class="btn btn-success"> Checkout</a>
+                    <a href="/checkout" class="btn btn-success">Proceder al Checkout</a>
                 </div>
             @endif
         </div>
         <br><br>
     </div>
-    @if(count(\Cart::getContent()) > 0)
-    @foreach(\Cart::getContent() as $item)
-        <li class="list-group-item">
-            <div class="row">
-                <div class="col-lg-3">
-                    <img src="/images/{{ $item->attributes->image }}"
-                         style="width: 50px; height: 50px;"
-                    >
-                </div>
-                <div class="col-lg-6">
-                    <b>{{$item->name}}</b>
-                    <br><small>Qty: {{$item->quantity}}</small>
-                </div>
-                <div class="col-lg-3">
-                    <p>${{ \Cart::get($item->id)->getPriceSum() }}</p>
-                </div>
-                <hr>
-            </div>
-        </li>
-    @endforeach
-    <br>
-    <li class="list-group-item">
-        <div class="row">
-            <div class="col-lg-10">
-                <b>Total: </b>${{ \Cart::getTotal() }}
-            </div>
-            <div class="col-lg-2">
-                <form action="{{ route('cart.clear') }}" method="POST">
-                    {{ csrf_field() }}
-                    <button class="btn btn-secondary btn-sm"><i class="fa fa-trash"></i></button>
-                </form>
-            </div>
-        </div>
-    </li>
-    <br>
-    <div class="row" style="margin: 0px;">
-        <a class="btn btn-dark btn-sm btn-block" href="{{ route('cart.drop.blade') }}">
-            CARRITO <i class="fa fa-arrow-right"></i>
-        </a>
-        <a class="btn btn-dark btn-sm btn-block" href="">
-            CHECKOUT <i class="fa fa-arrow-right"></i>
-        </a>
-    </div>
-@else
-    <li class="list-group-item">Tu carrito esta vacío</li>
-@endif
-
 @endsection

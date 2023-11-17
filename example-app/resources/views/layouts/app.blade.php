@@ -32,8 +32,12 @@
 </head>
 @yield('content')
 <body>
+<div id="app">
+    @include('partials.navbar')
+
     <main class="py-4">
       @section('contenido')
+      
 
       @endsection
     </main>

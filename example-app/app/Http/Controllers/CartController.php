@@ -14,17 +14,17 @@ class CartController extends Controller
     }
 
     public function cart()  {
-        $cartCollection = \Cart::getContent();
+        $cartCollection = Cart::getContent();
         //dd($cartCollection);
         return view('cart')->withTitle('E-COMMERCE STORE | CART')->with(['cartCollection' => $cartCollection]);;
     }
     public function remove(Request $request){
-        \Cart::remove($request->id);
+        Cart::remove($request->id);
         return redirect()->route('cart.blade')->with('success_msg', 'Item is removed!');
     }
 
-    public function add(Request$request){
-        \Cart::add(array(
+    public function add(Request $request){
+        Cart::add(array(
             'id' => $request->id,
             'nombre' => $request->nombre,
             'precio' => $request->precio,
@@ -38,7 +38,7 @@ class CartController extends Controller
     }
 
     public function update(Request $request){
-        \Cart::update($request->id,
+        Cart::update($request->id,
             array(
                 'quantity' => array(
                     'relative' => false,
@@ -49,7 +49,7 @@ class CartController extends Controller
     }
 
     public function clear(){
-        \Cart::clear();
+        Cart::clear();
         return redirect()->route('cart.blade')->with('success_msg', 'El carrito esta vacio!');
     }
 

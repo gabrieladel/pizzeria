@@ -5,7 +5,7 @@ use App\Http\Controllers\PersonaController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\PedidoController;
 use Illuminate\Support\Facades\Route;
-use Car\Carrito\App\Http\Controllers\CartController;
+use App\Http\Controllers\CartController;
 
 /*
 |--------------------------------------------------------------------------
