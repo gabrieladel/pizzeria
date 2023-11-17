@@ -1,11 +1,15 @@
-
-@yield('producto')
 @extends('layouts.app')
 
 @section('contenido')
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito de Compras</title>
+</head>
 <body>
-     <header>
+    <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <a class="navbar-brand" href="#">
                 <img src="imagenes/icono.png" width="150" height="110" alt="">#Pizzas
@@ -63,29 +67,32 @@
              </ul>
         </nav>
     </header> 
-    <h1 style="text-align: center; color:rgb(127, 26, 46)">Variedad de #Pizzas</h1>
-    <br>
+    <h1>Carrito de Compras</h1>
 
-    <div class="d-flex align-content-stretch flex-wrap" style="text-align: center;">
-    @foreach ($listado as $item)  
-    <div class="card-group" style="margin-left: 40px;">
-       <div class="card " style="width: 12rem; margin:10px " >
-        <img class="card-img-top" alt="Card image cap"src="{{$item->imagen}}" style="width: 12rem; height:10rem;"alt="" srcset="" >
-        <div class="card-body">
-          <h5 class="card-title">{{$item->nombre}}</h5>
-          <p class="card-text">{{$item->descripción}}</p>
-          
-          <p class="card-text">${{$item->precio}}</p>
-          <br>
-          <div class="position-absolute fixed-bottom mb-2">
-            <a href="{{ route('product.addToCart', ['product' => $item->id]) }}">Pedir</a>
-        </div>
-        </div>
-    </div>
-  </div>
-      @endforeach
-    </div>
-{{--     @section('footer') --}}
+    <table>
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Precio</th>
+                <th>Cantidad</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($cartItems as $cartItem)
+                <tr>
+                    <td>{{ $cartItem->nombre }}</td>
+                    <td>{{ $cartItem->precio }}</td>
+                    <td>{{ $cartItem->quantity }}</td>
+                    <td>
+                        <a href="">Agregar</a>
+                        <a href="">Eliminar</a>
+                    </td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
 
+    <a >Finalizar Compra</a>
 </body>
 </html>

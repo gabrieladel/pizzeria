@@ -59,5 +59,13 @@ public function esAdmin () {
 
         return false;
     }
+    public function cartItems()
+    {
+        return $this->hasMany(CartItem::class);
+    }
 
+    public function getCartItems()
+    {
+        return $this->cartItems()->with('product')->get();
+    }
 }

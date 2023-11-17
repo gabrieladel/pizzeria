@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+
 class ProductoController extends Controller
 {
     public function index(){
@@ -76,5 +77,6 @@ class ProductoController extends Controller
             return back()->with("incorrecto","Error al eliminar");
          }
     }
+    
 }
 ?>

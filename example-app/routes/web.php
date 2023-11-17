@@ -3,8 +3,10 @@
 use App\Http\Controllers\ClienteController; */
 use App\Http\Controllers\PersonaController;
 use App\Http\Controllers\ProductoController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PedidoController;
 use Illuminate\Support\Facades\Route;
+
 
 
 Route::get('/', function () {
@@ -14,9 +16,10 @@ Route::get('/', function () {
 Route::get('pedido', function () {
     return view('index');
 });
-Route::get('carrito', function () {
+Route::get('/carrito', function () {
     return view('Carrito/index');
 }); 
+Route::get('/carrito', [ProductController::class, 'index']);
 Route::get('contacto', function () {
     return view('contacto');
 });
@@ -49,3 +52,6 @@ Route::post('/modificarProductos', [ProductoController::class, 'update'])->name(
 //ruta para eliminar un producto 
 Route::get('/eliminarProductos-{id}', [ProductoController::class, 'delete'])->name("producto.delete");
 /* }); */
+Route::get('/carrito', [ProductController::class, 'index']);
+Route::get('/carrito', [ProductController::class, 'addToCart'])->name("product.addToCart");
+Route::get('/add-to-cart/{product}', 'ProductController@addToCart')->name('products.add-to-cart');
