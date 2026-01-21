@@ -17,8 +17,11 @@ class ProductController extends Controller
         return view('Carrito.index', ['cartItems' => $product]);
 
     }
-    public function addToCart(Product $product, User $user)
+    public function addToCart(Request $request)
     {
+
+        var_dump($request->get('id'));
+        die;
         // Obtenemos el producto desde la base de datos utilizando el ID del producto
         $product = Product::findOrFail($product);
 

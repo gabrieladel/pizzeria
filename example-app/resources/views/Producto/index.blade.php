@@ -1,6 +1,6 @@
 @yield('producto')
 @extends('layouts.app')
-
+v
 @section('contenido')
 
     <body>
@@ -80,7 +80,7 @@
                             <p class="card-text">${{ $item->precio }}</p>
                             <br>
                             <div class="position-absolute fixed-bottom mb-2">
-                                <a href="{{ route('product.addToCart', ['product' => $item->id]) }}">Pedir</a>
+                                <a href="/add/{{ $item->id }}">Pedir</a>
                             </div>
                         </div>
                     </div>

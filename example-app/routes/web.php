@@ -18,7 +18,7 @@ Route::get('pedido', function () {
 });
 Route::get('/carrito', function () {
     return view('Carrito/index');
-}); 
+});
 Route::get('/carrito', [ProductController::class, 'index']);
 Route::get('contacto', function () {
     return view('contacto');
@@ -31,7 +31,7 @@ Route::get('/persona/{personas}', [PersonaController::class, 'show']);
 Route::get('/pedido', [PedidoController::class, 'index']);
 Route::get('/pedido/{pedidos}', [PedidoController::class, 'show']);
 Route::get('/producto', [ProductoController::class, 'index']);
-Route::get('/producto/{productos}', [ProductoController::class, 'show']);
+///producto/{productos}', [ProductoController::class, 'show']);
 
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -39,10 +39,10 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::resource('home', ProductoController::class);
 
 /* Route::group(['middleware' => 'admin'], function () { */
-   
-    Route::get( '/admin', function () {
-        return view('panelAdmin');
-    }); 
+
+Route::get('/admin', function () {
+    return view('panelAdmin');
+});
 Route::get('/crearProducto', [ProductoController::class, 'create']);
 Route::get('/verProductos', [ProductoController::class, 'listar']);
 //ruta para añadir un nuevo producto
@@ -53,5 +53,5 @@ Route::post('/modificarProductos', [ProductoController::class, 'update'])->name(
 Route::get('/eliminarProductos-{id}', [ProductoController::class, 'delete'])->name("producto.delete");
 /* }); */
 Route::get('/carrito', [ProductController::class, 'index']);
-Route::get('/carrito', [ProductController::class, 'addToCart'])->name("product.addToCart");
-Route::get('/add-to-cart/{product}', 'ProductController@addToCart')->name('products.add-to-cart');
+Route::get('/add/{id}', [ProductController::class, 'addToCart'])->name("product.addToCart");
+//Route::get('/add-to-cart/{product}', 'ProductController@addToCart')->name('products.add-to-cart');
