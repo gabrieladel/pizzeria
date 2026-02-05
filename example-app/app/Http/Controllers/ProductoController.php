@@ -30,7 +30,7 @@ class ProductoController extends Controller
    public function create(Request $request)
    {
       try {
-         $sql = DB::insert(" insert into producto(categoria_id,nombre,imagen,descripción,precio)values(?,?,?,?,?) ", [
+         $sql = DB::insert(" insert into producto(categoria_id,nombre,imagen,descripcion,precio)values(?,?,?,?,?) ", [
             $request->txtcategoria,
             $request->txtnombre,
             $request->txtimagen,
@@ -50,7 +50,7 @@ class ProductoController extends Controller
    public function update(Request $request)
    {
       try {
-         $sql = DB::update(" update producto set categoria_id=?,nombre=?,imagen=?,descripción=?,precio=? where id=? ", [
+         $sql = DB::update(" update producto set categoria_id=?,nombre=?,imagen=?,descripcion=?,precio=? where id=? ", [
             $request->txtcategoria,
             $request->txtnombre,
             $request->txtimagen,

@@ -75,7 +75,7 @@ v
                             style="width: 12rem; height:10rem;"alt="" srcset="">
                         <div class="card-body">
                             <h5 class="card-title">{{ $item->nombre }}</h5>
-                            <p class="card-text">{{ $item->descripción }}</p>
+                            <p class="card-text">{{ $item->descripcion }}</p>
 
                             <p class="card-text">${{ $item->precio }}</p>
                             <br>
