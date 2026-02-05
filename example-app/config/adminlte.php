@@ -291,11 +291,7 @@ return [
 
     'menu' => [
         // Navbar items:
-        [
-            'type'         => 'navbar-search',
-            'text'         => 'search',
-            'topnav_right' => true,
-        ],
+      
         [
             'type'         => 'fullscreen-widget',
             'topnav_right' => true,
@@ -312,24 +308,19 @@ return [
             'can'  => 'manage-blog',
         ],
     
-        ['header' => 'Configuracion'],
+        ['header' => 'Categorias'],
         [
-            'text' => 'Admin',
-            'url'  => 'admin',
+            'text' => 'Usuarios',
             'icon' => 'fas fa-fw fa-user',
             'submenu' => [
                 
                 [
-                    'text' => 'Listado de Admin',
-                    'url'  => 'verAdmin',
+                    'text' => 'Listado de Usuarios',
+                    'url'  => 'verUsuarios',
                 ],
             ],
         ],
-        /* [
-            'text' => 'change_password',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
-        ], */
+
         [
             'text'    => 'Productos',
             'icon'    => 'fas fa-fw fa-share',
@@ -339,14 +330,11 @@ return [
                             'text' => 'Listado de productos',
                             'url'  => 'verProductos',
                         ],
-                        [
-                            'text' => 'Registrar productos',
-                            'url'  => 'crearProducto',
-                        ],
+                   
                     ],
-                ],
+         ],
                
-            ],
+    ],
 
     /*
     |--------------------------------------------------------------------------
