@@ -1,6 +1,6 @@
 @yield('producto')
 @extends('layouts.app')
-v
+
 @section('contenido')
 
     <body>
