@@ -333,6 +333,32 @@ return [
                    
                     ],
          ],
+
+         [
+            'text'    => 'Pedidos',
+            'icon'    => 'fas fa-fw fa-share',
+            'submenu' => [
+                
+                        [
+                            'text' => 'Listado de pedidos',
+                            'url'  => 'verPedidos',
+                        ],
+                   
+                    ],
+         ],
+
+         [
+            'text'    => 'Facturas',
+            'icon'    => 'fas fa-fw fa-share',
+            'submenu' => [
+                
+                        [
+                            'text' => 'facturas',
+                            'url'  => 'verFacturas',
+                        ],
+                   
+                    ],
+         ],
                
     ],
 
