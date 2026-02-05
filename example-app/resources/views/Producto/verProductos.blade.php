@@ -1,7 +1,4 @@
 @extends('adminlte::page')
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-@section('title', '#Pizzas')
 
 @section('content_header')
 
@@ -100,7 +97,7 @@
                             <td>{{ $item->categoria_id }}</td>
                             <td><img src="{{ $item->imagen }}" style="width: 4rem; height:2rem;"alt=""
                                     srcset=""></td>
-                            <td>{{ $item->descripción }}</td>
+                            <td>{{ $item->descripcion }}</td>
                             <td>${{ $item->precio }}</td>
                             <td><a href="" data-bs-toggle="modal"
                                     data-bs-target="#modalEditar{{ $item->id }}"class="btn btn-warning btn-sm"><i
@@ -146,7 +143,7 @@
                                             <div class="mb-3">
                                               <label for="exampleInputEmail1" class="form-label">Descripcion del producto</label>
                                               <input type="text" class="form-control" id="exampleInputEmail5"
-                                                  aria-describedby="txtHelp" name="txtdescripcion" value="{{ $item->descripción }}">
+                                                  aria-describedby="txtHelp" name="txtdescripcion" value="{{ $item->descripcion }}">
                                           </div>
                                           <div class="mb-3">
                                             <label for="exampleInputEmail1" class="form-label">Precio del producto</label>
