@@ -1,76 +1,60 @@
-@extends('footer')
-@extends('home')
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Pedidos - Pizzería</title>
+    <link href="https://cdn.jsdelivr.net" rel="stylesheet">
+</head>
+<body class="bg-light">
 
-@section('content')
-<body>
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-                <a class="navbar-brand" href="#">
-                  <img src="imagenes/icono.png" width="150" height="110" alt="">#Pizzas
-                </a>
-          
-            <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-              <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                <li class="nav-item active">
-                  <a class="nav-link" href="/">Inicio <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="producto">Variedades</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="contacto">Contacto</a>
-                  </li>
-              </ul>
-              <ul class="navbar-nav mr-sm-2">
-              @if (Route::has('login'))
-            <div class="login " >
-                @auth
-                    <a href="{{ url('/home') }}" class="font-semibold">Home</a>
-                    <i class="fa-solid fa-cart-shopping" style="color: #ffffff;"> Carrito</i>
-                @else
-                    <a href="{{ route('login') }}" class="font-semibold " style="color: white">Log in</a>
-    
-                    @if (Route::has('register'))
-                        <a href="{{ route('register') }}" class="ml-4 font-semibold" style="color: white"  >Register</a>
-                    @endif
-                @endauth
+<div class="container mt-5">
+    <div class="card shadow">
+        <div class="card-header bg-danger text-white d-flex justify-content-between align-items-center">
+            <h3 class="mb-0">Pedidos Entrantes</h3>
+            <span class="badge bg-white text-danger">{{ $Pedido->count() }} pedidos hoy</span>
+
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Cliente</th>
+                            <th>Producto</th>
+                            <th>Cant.</th>
+                            <th>Total</th>
+                            <th>Fecha</th>
+                            <th>Vendedor</th>
+                            <th class="text-center">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse($Pedido as $pedido)
+                        <tr>
+                            <td><strong>#{{ $pedido->id }}</strong></td>
+                            <td>{{ $pedido->cliente }}</td>
+                            <td><span class="badge bg-info text-dark">{{ $pedido->producto }}</span></td>
+                            <td>{{ $pedido->cantidad }}</td>
+                            <td class="fw-bold text-success">${{ number_format($pedido->total, 2) }}</td>
+                            <td>{{ $pedido->fecha }}</td>
+                            <td><small class="text-muted">{{ $pedido->vendedor }}</small></td>
+                            <td class="text-center">
+                                <button class="btn btn-sm btn-warning">Editar</button>
+                                <button class="btn btn-sm btn-danger">Borrar</button>
+                            </td>
+                        </tr>
+                        @empty
+                        <tr>
+                            <td colspan="8" class="text-center">No hay pedidos registrados todavía.</td>
+                        </tr>
+                        @endforelse
+                    </tbody>
+                </table>
             </div>
-          @endif
-          </div>
-        </ul>
-        </nav>
-    </header>
-    
-    <h1>Pedido </h1>
-    <table class="pedido">
-        <thead>
-        <tr>
-            <th>id</th>
-            <th>vendedor</th>
-            <th>cliente</th>
-            <th>fecha</th>
-            <th>producto</th>
-            <th>cantidad</th>
-            <th>total</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach ($listado as $item)  
-        <tr>
-            <td>{{$item ->id}}</td>
-            <td>{{$item->vendedor}}</td>
-            <td>{{$item->cliente}}</td>
-            <td>{{$item->fecha}}</td>
-            <td>{{$item->producto}}</td>
-            <td>{{$item->cantidad}}</td>
-            <td>{{$item ->total}}</td>
-        </tr>
-        @endforeach
-    </tbody>
-    </table>
-    @section('footer')
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
