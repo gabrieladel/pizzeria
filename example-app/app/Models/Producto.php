@@ -1,40 +1,14 @@
 <?php
 
-class Producto {
-    
-    private $producto;
-    private $db;
+namespace App\Models;
 
-    public function __construct() {
-        $this->producto = array();
-        $this->db = new PDO('mysql:host=127.0.0.1:3306;dbname=db_pizzeria', "root", "");
-    }
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
-    private function setNames() {
-        return $this->db->query("SET NAMES 'utf8'");
-    }
-
-    public function getProductos() {
-
-        self::setNames();
-        $sql = "SELECT id, nombre, precio FROM producto";
-        foreach ($this->db->query($sql) as $res) {
-            $this->producto[] = $res;
-        }
-        return $this->producto;
-    }
-
-    public function setProducto($nombre, $precio) {
-
-        self::setNames();
-        $sql = "INSERT INTO producto(nombre, precio) VALUES ('" . $nombre . "', '" . $precio . "')";
-        $result = $this->db->query($sql);
-
-        if ($result) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+class Producto extends Model
+{
+    use HasFactory;
+    protected $table = 'producto';
+    protected $fillable = ['nombre', 'precio'];
+    public $timestamps = false;
 }
-?>
