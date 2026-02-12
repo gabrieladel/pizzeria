@@ -1,57 +1,52 @@
 <?php
-/* 
-use App\Http\Controllers\ClienteController; */
+
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PersonaController;
 use App\Http\Controllers\ProductoController;
-use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PedidoController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\HomeController;
 
+//RUTAS PÚBLICAS
+Route::get('/', function () { return view('welcome'); });
+Route::get('/contacto', function () { return view('contacto'); });
 
+Route::get('/producto', [ProductoController::class, 'index'])->name('productos.index');
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/carrito', [CartController::class, 'cart'])->name('cart.list');
+Route::post('/carrito-agregar', [CartController::class, 'add'])->name('cart.store');
+Route::post('/carrito-actualizar', [CartController::class, 'update'])->name('cart.update');
+Route::post('/carrito-eliminar', [CartController::class, 'remove'])->name('cart.remove');
+Route::post('/carrito-vaciar', [CartController::class, 'clear'])->name('cart.clear');
 
-Route::get('pedido', function () {
-    return view('index');
-});
-Route::get('/carrito', function () {
-    return view('Carrito/index');
-});
-Route::get('/carrito', [ProductController::class, 'index']);
-Route::get('contacto', function () {
-    return view('contacto');
-});
+Route::get('/finalizar-pedido', [CartController::class, 'checkout'])->name('cart.checkout');
+Route::post('/procesar-pedido', [CartController::class, 'processOrder'])->name('cart.process');
 
-/* Route::get('/cliente', [ClienteController::class, 'index']);
-Route::get('/cliente/{cliente}', [ClienteController::class, 'show']); */
-Route::get('/persona', [PersonaController::class, 'index']);
-Route::get('/persona/{personas}', [PersonaController::class, 'show']);
-Route::get('/pedido', [PedidoController::class, 'index']);
-Route::get('/pedido/{pedidos}', [PedidoController::class, 'show']);
-Route::get('/producto', [ProductoController::class, 'index']);
-///producto/{productos}', [ProductoController::class, 'show']);
-
+//RUTAS DE AUTENTICACIÓN
 Auth::routes();
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-/* Route::resource('home', ClienteController::class); */
-Route::resource('home', ProductoController::class);
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-/* Route::group(['middleware' => 'admin'], function () { */
-
-Route::get('/admin', function () {
-    return view('panelAdmin');
-});
+//RUTAS DE ADMIN
+Route::group(['middleware' => 'auth'], function () {
+Route::get('/admin', function () { return view('panelAdmin'); });
 Route::get('/crearProducto', [ProductoController::class, 'create']);
 Route::get('/verProductos', [ProductoController::class, 'listar']);
-//ruta para añadir un nuevo producto
-Route::post('/registrarProductos', [ProductoController::class, 'create'])->name("producto.create");
-//ruta para modificar un producto 
-Route::post('/modificarProductos', [ProductoController::class, 'update'])->name("producto.update");
-//ruta para eliminar un producto 
+Route::post('/registrarProductos', [ProductoController::class, 'store'])->name("producto.create");
+Route::post('/modificarProductos', [ProductoController::class, 'update_admin'])->name("producto.update");
 Route::get('/eliminarProductos-{id}', [ProductoController::class, 'delete'])->name("producto.delete");
-/* }); */
-Route::get('/carrito', [ProductController::class, 'index']);
-Route::get('/add/{id}', [ProductController::class, 'addToCart'])->name("product.addToCart");
-//Route::get('/add-to-cart/{product}', 'ProductController@addToCart')->name('products.add-to-cart');
+
+Route::resource('home_productos', ProductoController::class);
+Route::get('/persona', [PersonaController::class, 'index']);
+Route::get('/Pedido', [PedidoController::class, 'index']);
+Route::get('/crearPedidos', [PedidoController::class, 'create']);
+Route::get('/verPedidos', [PedidoController::class, 'listar']);
+Route::resource('Pedido', PedidoController::class)->names('pedido');
+/* Route::resource('producto', ProductoController::class); */
+
+Route::get('/crearUsuarios', [UserController::class, 'create']);
+Route::get('/verUsuarios', [UserController::class, 'listar']);
+
+Route::get('/pedido-eliminar/{id}', [PedidoController::class, 'delete'])->name('pedido.delete');
+Route::post('/pedido-actualizar', [PedidoController::class, 'update'])->name('pedido.update');
+
+});
