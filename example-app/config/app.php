@@ -40,6 +40,7 @@ return [
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        Darryldecode\Cart\CartServiceProvider::class,
     ],
 
     'aliases' => [
@@ -49,6 +50,7 @@ return [
         'Blade' => Illuminate\Support\Facades\Blade::class,
         'Bus' => Illuminate\Support\Facades\Bus::class,
         'Cache' => Illuminate\Support\Facades\Cache::class,
+        'Cart' => Darryldecode\Cart\Facades\CartFacade::class,
         'Config' => Illuminate\Support\Facades\Config::class,
         'DB' => Illuminate\Support\Facades\DB::class,
         'Eloquent' => Illuminate\Database\Eloquent\Model::class,
