@@ -1,59 +1,46 @@
 <?php
+
 namespace App\Http\Controllers;
-use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB; 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use App\Models\Pedido;
+
 class PedidoController extends Controller
 {
-    public function index(){
-        $pedidos = DB::select('SELECT * FROM pedido ');
-        return view('pedido.index', ['listado' => $pedidos]);
-    }
-    public function show($id, $vendedor,$cliente, $fecha, $producto, $cantidad, $total){
-         return view('pedido.show' , ['pedido' => $id, $vendedor,$cliente, $fecha, $producto, $cantidad, $total]);
-    }
-  /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function index()
     {
-        //
+        $Pedido = Pedido::all();
+        return view('Pedido.index', compact('Pedido'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+     public function listar()
+   {
+      
+    $listado = DB::table('pedido')
+        ->join('cliente', 'pedido.cliente_id', '=', 'cliente.id')
+        ->join('persona', 'cliente.persona', '=', 'persona.id')
+        ->join('producto', 'pedido.producto_id', '=', 'producto.id')
+        ->select(
+            'pedido.*', 
+            'persona.nombre as nombre_cliente', 
+            'producto.nombre as nombre_producto' 
+        )
+        ->get();
 
-    /**
-     * Display the specified resource.
-     */
+    return view('pedido.verPedidos', compact('listado'));
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Pedido $pedido)
-    {
-        //
-    }
+   }
+   
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Pedido $pedido)
-    {
-        //
-    }
+   public function delete($id)
+{
+    $eliminado = DB::table('pedido')->where('id', $id)->delete();
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Pedido $pedido)
-    {
-        //
+    if ($eliminado) {
+        return back()->with("correcto", "Pedido eliminado correctamente");
+    } else {
+        return back()->with("incorrecto", "No se pudo eliminar el pedido");
     }
 }
-?>
+
+}
