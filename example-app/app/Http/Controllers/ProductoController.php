@@ -9,7 +9,7 @@ class ProductoController extends Controller
 {
    public function index()
    {
-      $productos = DB::select('SELECT * FROM producto ');
+      $productos = DB::select('SELECT * FROM productos ');
       return view('producto.index', ['listado' => $productos]);
 
    }
@@ -23,7 +23,7 @@ class ProductoController extends Controller
     */
    public function listar()
    {
-      $productos = DB::select('SELECT * FROM producto ');
+      $productos = DB::select('SELECT * FROM productos ');
       return view('producto.verProductos', ['listado' => $productos]);
 
    }
@@ -50,7 +50,7 @@ class ProductoController extends Controller
    public function update(Request $request)
    {
       try {
-         $sql = DB::update(" update producto set categoria_id=?,nombre=?,imagen=?,descripcion=?,precio=? where id=? ", [
+         $sql = DB::update(" update productos set categoria_id=?,nombre=?,imagen=?,descripcion=?,precio=? where id=? ", [
             $request->txtcategoria,
             $request->txtnombre,
             $request->txtimagen,
@@ -73,7 +73,7 @@ class ProductoController extends Controller
    public function delete($id)
    {
       try {
-         $sql = DB::delete(" delete from producto where id=$id ");
+         $sql = DB::delete(" delete from productos where id=$id ");
       } catch (\Throwable $th) {
          $sql = 0;
       }

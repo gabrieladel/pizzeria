@@ -16,25 +16,25 @@ class PedidoController extends Controller
      public function listar()
    {
       
-    $listado = DB::table('pedido')
-        ->join('cliente', 'pedido.cliente_id', '=', 'cliente.id')
-        ->join('persona', 'cliente.persona', '=', 'persona.id')
-        ->join('producto', 'pedido.producto_id', '=', 'producto.id')
+    $listado = DB::table('pedidos')
+        ->join('clientes', 'pedido.cliente_id', '=', 'cliente.id')
+        ->join('personas', 'cliente.persona', '=', 'persona.id')
+        ->join('productos', 'pedido.producto_id', '=', 'producto.id')
         ->select(
-            'pedido.*', 
-            'persona.nombre as nombre_cliente', 
-            'producto.nombre as nombre_producto' 
+            'pedidos.*', 
+            'personas.nombre as nombre_cliente', 
+            'productos.nombre as nombre_producto' 
         )
         ->get();
 
-    return view('pedido.verPedidos', compact('listado'));
+    return view('pedidos.verPedidos', compact('listado'));
 
    }
    
 
    public function delete($id)
 {
-    $eliminado = DB::table('pedido')->where('id', $id)->delete();
+    $eliminado = DB::table('pedidos')->where('id', $id)->delete();
 
     if ($eliminado) {
         return back()->with("correcto", "Pedido eliminado correctamente");

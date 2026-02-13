@@ -1,8 +1,8 @@
-@extends('adminlte::page')
+<!-- @extends('adminlte::page') -->
 
-@section('content_header')
+<!-- @section('content_header')
 
-@stop
+@stop -->
 
 @section('content')
 
