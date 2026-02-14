@@ -31,7 +31,8 @@
                                                 aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <form action="{{route("producto.create")}}" method="post">
+                                            <form action="{{ route('productos-admin.store') }}" method="post">
+
                                                 @csrf
                                                 <div class="mb-3">
                                                     <label for="exampleInputEmail1" class="form-label">Nombre del producto</label>
@@ -104,7 +105,14 @@
                                         class="fas fa-edit"></i></a>
                             </td>
                             <td>
-                                <a href="{{route("producto.delete", $item->id)}}" onclick="return res()" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
+                                <form action="{{ route('productos-admin.destroy', $item->id) }}" method="POST" style="display:inline;">
+    @csrf
+    @method('DELETE')
+    <button type="submit" class="btn btn-danger btn-sm" onclick="return res()">
+        <i class="fas fa-trash"></i>
+    </button>
+</form>
+
                             </td>
 
                             <!-- Modal de modificar datos-->
@@ -118,8 +126,10 @@
                                                 aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <form action="{{route("producto.update")}}" method="post">
-                                                @csrf
+                                            <form action="{{ route('productos-admin.update', $item->id) }}" method="post">
+    @csrf
+    @method('PUT') 
+
                                                 <div class="mb-3">
                                                     <label for="exampleInputEmail1" class="form-label">id del producto</label>
                                                     <input type="text" class="form-control" id="exampleInputEmail1"
