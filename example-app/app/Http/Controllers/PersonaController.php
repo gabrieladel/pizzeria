@@ -3,16 +3,26 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\Models\Persona;
+
+
 class PersonaController extends Controller
 {
-    public function index(){
-        $personas = DB::select('SELECT * FROM persona ');
-        return view('persona.index', ['listado' => $personas]);
+
+public function index()
+    {
+        $personas = Persona::all();
+        return view('personas.index', compact('personas'));
     }
-    
-    public function show($id, $nombre, $telefono){
-         return view('persona.show' , ['persona' => $id, $nombre, $telefono]);
+
+        public function show($id)
+    {
+        $persona = Persona::with(['cliente', 'vendedor'])->findOrFail($id);
+
+        return view('personas.show', compact('persona'));
     }
+
+   
       /**
      * Show the form for creating a new resource.
      */
@@ -56,5 +66,6 @@ class PersonaController extends Controller
     {
         //
     }
+
 }
 ?>
