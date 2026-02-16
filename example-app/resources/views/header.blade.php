@@ -20,7 +20,7 @@
             <a class="nav-link" href="/">Inicio</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/producto">Variedades</a>
+            <a class="nav-link" href="/productos">Variedades</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/contacto">Contacto</a>

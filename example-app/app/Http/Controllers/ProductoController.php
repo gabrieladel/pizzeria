@@ -15,6 +15,13 @@ class ProductoController extends Controller
         return view('Producto.verProductos', ['listado' => $productos]);
     }
 
+public function tienda()
+{
+    $productos = DB::select('SELECT * FROM productos');
+    return view('Producto.index', ['listado' => $productos]);
+}
+
+
     /* Guarda un nuevo producto*/
     public function store(Request $request)
     {
@@ -63,7 +70,7 @@ class ProductoController extends Controller
         }
     }
 
-    // Si necesitas el show, podés dejarlo así:
+   
     public function show($id)
     {
         $producto = DB::select('SELECT * FROM productos WHERE id = ?', [$id]);

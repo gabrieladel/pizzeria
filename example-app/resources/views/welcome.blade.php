@@ -11,7 +11,7 @@
                 <div class="carousel-caption text-white d-none d-md-block">
                     <h5>Irresistibles</h5>
                     <p>Entra y mira las variedades que tenemos</p>
-                    <a href="producto" class="btn btn-light">Ver variedades</a>
+                    <a href="productos" class="btn btn-light">Ver variedades</a>
                 </div>
             </div>
         </div>

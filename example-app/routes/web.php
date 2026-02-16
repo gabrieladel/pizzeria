@@ -14,10 +14,8 @@ use App\Http\Controllers\UserController;
 
 Route::view('/', 'welcome')->name('welcome');
 Route::view('/contacto', 'contacto')->name('contacto');
-
-/* Productos públicos */
-Route::get('/productos', [ProductoController::class, 'index'])
-    ->name('productos.index');
+Route::get('/productos', [ProductoController::class, 'tienda'])
+    ->name('productos.public');
 
 /* Carrito */
 Route::get('/carrito', [CartController::class, 'cart'])->name('cart.list');
