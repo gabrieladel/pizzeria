@@ -35,7 +35,7 @@
                             <form action="{{ route('cart.remove') }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <input type="hidden" name="id" value="{{ $item->rowId }}">
+                                <input type="hidden" name="id" value="{{ $item->id }}">
                                 <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
                             </form>
 

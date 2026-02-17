@@ -34,16 +34,12 @@
 
           <!-- Carrito -->
           <li class="nav-item">
-            <a class="nav-link position-relative" href="{{ route('cart.list') }}">
-              
-              <i class="fa fa-shopping-cart fs-5"></i>
+            <a class="nav-link position-relative" href="{{ route('cart.list') }}"> 
+             <i class="fa fa-shopping-cart fs-5"></i>
 
-              @php
-                $cantidad = method_exists(\Cart::class, 'getTotalQuantity')
-                    ? \Cart::getTotalQuantity()
-                    : \Cart::count();
-              @endphp
-
+            @php
+               $cantidad = \Cart::getTotalQuantity();
+            @endphp
               @if($cantidad > 0)
                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                     {{ $cantidad }}

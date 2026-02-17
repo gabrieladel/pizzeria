@@ -69,7 +69,7 @@ class CartController extends Controller
             return "Error: El usuario no tiene una Persona asociada en la tabla 'persona'";
         }
 
-        $cliente = \DB::table('cliente')->where('persona', $persona->id)->first();
+        $cliente = \DB::table('clientes')->where('persona_id', $persona->id)->first();
         if (!$cliente) {
             return "Error: La persona no está registrada como Cliente en la tabla 'cliente'";
         }
