@@ -23,12 +23,12 @@ class Persona extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function cliente()
     {
-        return $this->hasOne(Cliente::class);
+        return $this->hasOne(Cliente::class, 'persona_id');
     }
 
     public function vendedor()
