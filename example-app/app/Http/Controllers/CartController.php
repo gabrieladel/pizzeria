@@ -63,6 +63,8 @@ class CartController extends Controller
   public function processOrder(Request $request) {
     try {
         $user = \Auth::user();
+
+
         
         $persona = \DB::table('personas')->where('user_id', $user->id)->first();
         if (!$persona) {
@@ -93,7 +95,7 @@ class CartController extends Controller
 
         \Cart::clear();
 
-        return redirect()->route('pedido.index')->with('success_msg', '¡Pedido guardado!');
+        return redirect()->route('pedidos.index')->with('success_msg', '¡Pedido guardado!');
 
     } catch (\Exception $e) {
        
