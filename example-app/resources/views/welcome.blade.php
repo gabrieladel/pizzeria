@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('contenido')
-@include('header')
-    
+  
 <section id="inicio">
     <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
