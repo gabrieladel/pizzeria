@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Models;
-use App\Models\Persona;
 use App\Models\User;
 use App\Models\Cliente;
 use App\Models\Vendedor;
