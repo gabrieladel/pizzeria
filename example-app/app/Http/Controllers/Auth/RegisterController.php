@@ -8,6 +8,10 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Persona;
+use App\Models\Cliente;
+use Illuminate\Support\Facades\DB;
+
 
 class RegisterController extends Controller
 {
@@ -47,14 +51,17 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
-    }
+        protected function validator(array $data)
+        {
+            return Validator::make($data, [
+                'name' => ['required', 'string', 'max:255'],
+                'apellido' => ['required', 'string', 'max:255'],
+                'telefono' => ['required', 'string', 'max:100'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                'password' => ['required', 'string', 'min:8', 'confirmed'],
+            ]);
+        }
+
 
     /**
      * Create a new user instance after a valid registration.
@@ -63,11 +70,32 @@ class RegisterController extends Controller
      * @return \App\Models\User
      */
     protected function create(array $data)
-    {
-        return User::create([
+{
+    return DB::transaction(function () use ($data) {
+
+        // Crea usuario
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'roles' => 'cliente'
         ]);
-    }
+
+        // Crea persona
+        $persona = Persona::create([
+            'user_id' => $user->id,
+            'nombre' => $data['name'],
+            'apellido' => $data['apellido'],
+            'telefono' => $data['telefono'],
+        ]);
+
+        // Crea cliente
+        Cliente::create([
+            'persona_id' => $persona->id,
+            'cuil' => null
+        ]);
+
+        return $user;
+    });
+}
 }
