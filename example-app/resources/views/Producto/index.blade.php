@@ -35,7 +35,15 @@
             {{-- Añadimos la clase "pizza-card" aquí --}}
             <div class="card pizza-card" style="width: 16rem; border-radius: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); overflow: hidden; position: relative; padding-bottom: 60px; border: none;">
                 
-                <img class="card-img-top" src="{{ $item->imagen }}" style="height: 12rem; object-fit: cover;" alt="{{ $item->nombre }}">
+<img 
+    class="card-img-top" 
+    src="{{ $item->imagen 
+        ? asset('storage/' . $item->imagen) 
+        : asset('images/no-image.png') 
+    }}" 
+    style="height: 12rem; object-fit: cover;" 
+    alt="{{ $item->nombre }}">
+
                 
                 <div class="card-body">
                     <h5 class="card-title" style="font-weight: bold;">{{ $item->nombre }}</h5>
