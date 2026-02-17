@@ -26,15 +26,18 @@
             <a class="nav-link" href="/contacto">Contacto</a>
           </li>
         </ul>   
+
+        
         <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-            <a class="nav-link" href="{{ route('cart.list') }}">
-                <i class="fa fa-shopping-cart"></i> Carrito 
-            @if(\Cart::getContent()->count() > 0)
-                    <span class="badge badge-danger" style="background-color: red; border-radius: 50%; padding: 2px 6px;">
-                        {{ \Cart::getContent()->count() }}
-                    </span>
-                @endif
+                        <li class="nav-item">
+                    <a class="nav-link" href="{{ route('cart.list') }}">
+                        <i class="fa fa-shopping-cart"></i> Carrito 
+                    @if(\Cart::count())
+            <span class="badge badge-danger" style="background-color: red; border-radius: 50%; padding: 2px 6px;">
+                {{ \Cart::count() }}
+            </span>
+        @endif
+    
             </a>
         </li>
            @guest
