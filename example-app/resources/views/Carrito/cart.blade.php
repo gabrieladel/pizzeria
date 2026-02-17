@@ -22,9 +22,9 @@
                     <tr>
                         <td>
             @if($item->attributes?->image)
-                <img src="imagenes/{{ $item->attributes->image }}" width="50">
+                <img src="storage/{{ $item->attributes->image }}" width="50">
             @else
-                <img src="imagenes/default.png" width="50">
+                <img src="storage/default.png" width="50">
             @endif
         </td>
                         <td>{{ $item->name }}</td>
@@ -34,9 +34,12 @@
                         <td>
                             <form action="{{ route('cart.remove') }}" method="POST">
                                 @csrf
+                                @method('DELETE')
                                 <input type="hidden" name="id" value="{{ $item->rowId }}">
-                                <button class="btn btn-danger btn-sm">Eliminar</button>
+                                <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
                             </form>
+
+                            
                         </td>
                     </tr>
                 @endforeach
@@ -45,7 +48,7 @@
         
         <div class="text-right">
             <h4>Total: ${{ \Cart::getTotal() }}</h4>
-            <a href="/producto" class="btn btn-dark">Seguir comprando</a>
+            <a href="/productos" class="btn btn-dark">Seguir comprando</a>
 
     <a href="{{ route('cart.checkout') }}" class="btn btn-success btn-lg">
         Finalizar Pedido <i class="fa fa-arrow-right"></i>
@@ -55,7 +58,7 @@
     @else
         <div class="alert alert-info text-center">
             <h3>Tu carrito está vacío</h3>
-            <a href="/producto" class="btn btn-primary mt-3">Ver variedades de Pizzas</a>
+            <a href="/productos" class="btn btn-primary mt-3">Ver variedades de Pizzas</a>
         </div>
     @endif
 </div>
