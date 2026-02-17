@@ -30,6 +30,21 @@
                         </div>
 
                         <div class="row mb-3">
+                            <label class="col-md-4 col-form-label text-md-end">Apellido</label>
+                            <div class="col-md-6">
+                                <input type="text" name="apellido" class="form-control" required>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="col-md-4 col-form-label text-md-end">Teléfono</label>
+                            <div class="col-md-6">
+                                <input type="text" name="telefono" class="form-control" required>
+                            </div>
+                        </div>
+
+
+                        <div class="row mb-3">
                             <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email') }}</label>
 
                             <div class="col-md-6">

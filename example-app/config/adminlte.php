@@ -309,17 +309,38 @@ return [
         ],
     
         ['header' => 'Categorias'],
+
+          [
+    'text' => 'Usuarios',
+    'icon' => 'fas fa-fw fa-user',
+    'submenu' => [
         [
-            'text' => 'Usuarios',
-            'icon' => 'fas fa-fw fa-user',
+            'text' => 'Listado de Usuarios',
+            'url'  => 'usuarios.index',
+        ],
+    ],
+],
+        [
+            'text' => 'Vendedores',
+            'icon' => 'fas fa-fw fa-user-admin',
             'submenu' => [
                 
                 [
-                    'text' => 'Listado de Usuarios',
-                    'url'  => 'verUsuarios',
+                    'text' => 'Listado de vendedores',
+                    'url'  => 'vendedores',
                 ],
             ],
         ],
+       [
+    'text' => 'Clientes',
+    'icon' => 'fas fa-fw fa-user',
+    'submenu' => [
+        [
+            'text' => 'Listado de Clientes',
+            'url'  => 'clientes',
+        ],
+    ],
+],
 
         [
             'text'    => 'Productos',

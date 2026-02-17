@@ -2,6 +2,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Persona;
+use App\Models\Pedido;
 
 class Vendedor extends Model
 {
@@ -11,6 +13,7 @@ class Vendedor extends Model
         'persona_id',
         'legajo'
     ];
+     public $timestamps = false;
 
     public function persona()
     {

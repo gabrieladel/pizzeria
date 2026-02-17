@@ -1,57 +1,51 @@
 <?php
-   namespace App\Http\Controllers;
-   use App\Http\Controllers\Controller;
-   use Illuminate\Http\Request;
-   class VendedorController extends Controller
-   {
-       public function index(){
-           return "controller vendedor";
-       }
-       public function show($id, $cuil, $resp, $persona){
-            return view('vendedor.show' , ['vendedor' => $id, $cuil, $resp, $persona]);
-       }
-       /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+
+namespace App\Http\Controllers;
+
+use App\Models\Vendedor;
+use Illuminate\Http\Request;
+
+class VendedorController extends Controller
+{
+    // Listar vendedores
+    public function index()
     {
-        //
+        $vendedores = Vendedor::with('persona')->get();
+        return view('vendedores.index', compact('vendedores'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    // Formulario de edición
+    public function edit($id)
     {
-        //
+        $vendedor = Vendedor::with('persona')->findOrFail($id);
+        return view('vendedores.edit', compact('vendedor'));
     }
 
-    /**
-     * Display the specified resource.
-     */
-  
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Vendedor $vendedor)
+    // Actualizar vendedor
+    public function update(Request $request, $id)
     {
-        //
-    }
+        $vendedor = Vendedor::findOrFail($id);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Vendedor $vendedor)
-    {
-        //
-    }
+        $request->validate([
+            'nombre' => 'required',
+            'apellido' => 'required',
+            'telefono' => 'required',
+            'legajo' => 'required'
+        ]);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Vendedor $vendedor)
-    {
-        //
+        // actualizar persona
+        $vendedor->persona->update([
+            'nombre' => $request->nombre,
+            'apellido' => $request->apellido,
+            'telefono' => $request->telefono,
+        ]);
+
+        // actualizar vendedor
+        $vendedor->update([
+            'legajo' => $request->legajo
+        ]);
+
+        return redirect()->route('vendedores.index')
+                         ->with('success', 'Vendedor actualizado correctamente');
     }
-   }
+}
