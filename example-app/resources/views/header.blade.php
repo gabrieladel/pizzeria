@@ -32,9 +32,9 @@
                         <li class="nav-item">
                     <a class="nav-link" href="{{ route('cart.list') }}">
                         <i class="fa fa-shopping-cart"></i> Carrito 
-                    @if(\Cart::count())
+                    @if(\Cart::getTotalQuantity())
             <span class="badge badge-danger" style="background-color: red; border-radius: 50%; padding: 2px 6px;">
-                {{ \Cart::count() }}
+                {{ \Cart::getTotalQuantity() }}
             </span>
         @endif
     
