@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 3',
+    'title' => '#Pizzas',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -63,12 +63,12 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
-    'logo_img_class' => 'brand-image img-circle elevation-3',
+    'logo' => '<b>#Pizzas</b>',
+    'logo_img' => 'imagenes/icono.png',
+
     'logo_img_xl' => null,
-    'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'Admin Logo',
+    'logo_img_xl_class' => 'brand-image-xl',
+
 
     /*
     |--------------------------------------------------------------------------
@@ -86,8 +86,7 @@ return [
     'auth_logo' => [
         'enabled' => false,
         'img' => [
-            'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
-            'alt' => 'Auth Logo',
+            'path' => 'imagenes/icono.png',
             'class' => '',
             'width' => 50,
             'height' => 50,
@@ -113,9 +112,8 @@ return [
         'enabled' => true,
         'mode' => 'fullscreen',
         'img' => [
-            'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
-            'alt' => 'AdminLTE Preloader Image',
-            'effect' => 'animation__shake',
+            'path' => 'public/imagenes/icono.png',
+         
             'width' => 60,
             'height' => 60,
         ],
@@ -297,116 +295,90 @@ return [
     | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Menu-Configuration
     |
     */
+'menu' => [
+    [
+        'type' => 'navbar-search',
+        'text' => 'search',
+        'topnav_right' => true,
+    ],
+    [
+        'type' => 'fullscreen-widget',
+        'topnav_right' => true,
+    ],
 
-    'menu' => [
-        // Navbar items:
-        [
-            'type' => 'navbar-search',
-            'text' => 'search',
-            'topnav_right' => true,
-        ],
-        [
-            'type' => 'fullscreen-widget',
-            'topnav_right' => true,
-        ],
+    [
+        'type' => 'sidebar-menu-search',
+        'text' => 'search',
+    ],
 
-        // Sidebar items:
-        [
-            'type' => 'sidebar-menu-search',
-            'text' => 'search',
-        ],
-        [
-            'text' => 'blog',
-            'url' => 'admin/blog',
-            'can' => 'manage-blog',
-        ],
-    
-        ['header' => 'Categorias'],
+    ['header' => 'Categorias'],
 
-          [
-    'text' => 'Usuarios',
-    'icon' => 'fas fa-fw fa-user',
-    'submenu' => [
-        [
-            'text' => 'Listado de Usuarios',
-            'url'  => 'usuarios.index',
+    [
+        'text' => 'Usuarios',
+        'icon' => 'fas fa-fw fa-user',
+        'submenu' => [
+            [
+                'text' => 'Listado de Usuarios',
+                'route' => 'usuarios.index',
+            ],
+        ],
+    ],
+
+    [
+        'text' => 'Vendedores',
+        'icon' => 'fas fa-id-badge',
+        'submenu' => [
+            [
+                'text' => 'Listado de vendedores',
+                'route' => 'vendedores.index',
+            ],
+        ],
+    ],
+
+    [
+        'text' => 'Clientes',
+        'icon' => 'fas fa-user-tag',
+        'submenu' => [
+            [
+                'text' => 'Listado de Clientes',
+                'route' => 'clientes.index',
+            ], 
+        ],
+    ],
+
+    [
+        'text' => 'Productos',
+        'icon' => 'fas fa-pizza-slice',
+        'submenu' => [
+            [
+                'text' => 'Listado de productos',
+                'url' => 'verProductos',
+            ],
+        ],
+    ],
+
+    [
+        'text' => 'Pedidos',
+        'icon' => 'fas  fa-shopping-cart',
+        'submenu' => [
+            [
+                'text' => 'Listado de pedidos',
+                'url' => 'verPedidos',
+            ],
+        ],
+    ],
+
+    [
+        'text' => 'Facturas',
+        'icon' => 'fas fa-file-invoice',
+        'submenu' => [
+            [
+                'text' => 'facturas',
+                'url' => 'verFacturas',
+            ],
         ],
     ],
 ],
-        [
-            'text' => 'Vendedores',
-            'icon' => 'fas fa-fw fa-user-admin',
-            'submenu' => [
-                [
-<<<<<<< HEAD
-                    'text' => 'Listado de vendedores',
-                    'url'  => 'vendedores',
-                ],
-            ],
-        ],
-       [
-    'text' => 'Clientes',
-    'icon' => 'fas fa-fw fa-user',
-    'submenu' => [
-        [
-            'text' => 'Listado de Clientes',
-            'url'  => 'clientes',
-        ],
-    ],
-],
-
-=======
-                    'text' => 'level_one',
-                    'url' => '#',
-                ],
-                [
-                    'text' => 'level_one',
-                    'url' => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'level_two',
-                            'url' => '#',
-                        ],
-                        [
-                            'text' => 'level_two',
-                            'url' => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url' => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url' => '#',
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-                [
-                    'text' => 'level_one',
-                    'url' => '#',
-                ],
-            ],
-        ],
-        ['header' => 'labels'],
->>>>>>> 3f44076019ae2d2d4439a8f3c07a1663a92d8cd9
-        [
-            'text' => 'important',
-            'icon_color' => 'red',
-            'url' => '#',
-        ],
-        [
-            'text' => 'warning',
-            'icon_color' => 'yellow',
-            'url' => '#',
-        ],
-        [
-            'text' => 'information',
-            'icon_color' => 'cyan',
-            'url' => '#',
-        ],
-    ],
 
     /*
     |--------------------------------------------------------------------------
