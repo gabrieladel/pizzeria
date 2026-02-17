@@ -1,13 +1,26 @@
 @extends('adminlte::page')
 
-@section('title', '#Pizzas')
+@section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>#Pizzas</h1>
+  
 @stop
 
 @section('content')
-    <p>Bienvenido al panel administrativo.</p>
+
+
+<div class="card shadow-sm">
+    <div class="card-body text-center">
+        <h2 class="fw-bold">
+            <i class="fas fa-pizza-slice text-danger"></i>
+            Bienvenido al panel administrativo
+        </h2>
+        <p class="text-muted">
+            Gestioná pizzas, clientes, vendedores, pedidos y facturas desde este panel.
+        </p>
+    </div>
+</div>
+
 @stop
 
 @section('css')
@@ -15,5 +28,7 @@
 @stop
 
 @section('js')
-    <script> console.log('Hi!'); </script>
+<script>
+    console.log('Dashboard cargado');
+</script>
 @stop

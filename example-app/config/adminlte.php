@@ -65,7 +65,6 @@ return [
 
     'logo' => '<b>#Pizzas</b>',
     'logo_img' => 'imagenes/icono.png',
-
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xl',
 
@@ -112,7 +111,7 @@ return [
         'enabled' => true,
         'mode' => 'fullscreen',
         'img' => [
-            'path' => 'public/imagenes/icono.png',
+            'path' => 'imagenes/icono.png',
          
             'width' => 60,
             'height' => 60,
@@ -188,17 +187,18 @@ return [
     |
     */
 
-    'classes_body' => '',
-    'classes_brand' => '',
-    'classes_brand_text' => '',
-    'classes_content_wrapper' => '',
-    'classes_content_header' => '',
-    'classes_content' => '',
-    'classes_sidebar' => 'sidebar-dark-primary elevation-4',
-    'classes_sidebar_nav' => '',
-    'classes_topnav' => 'navbar-white navbar-light',
-    'classes_topnav_nav' => 'navbar-expand',
-    'classes_topnav_container' => 'container',
+  'classes_body' => '',
+'classes_brand' => 'bg-danger',
+'classes_brand_text' => 'font-weight-bold',
+'classes_content_wrapper' => '',
+'classes_content_header' => 'bg-white shadow-sm',
+'classes_content' => '',
+'classes_sidebar' => 'sidebar-dark-danger elevation-4',
+'classes_sidebar_nav' => '',
+'classes_topnav' => 'navbar-dark navbar-danger',
+'classes_topnav_nav' => '',
+'classes_topnav_container' => '',
+
 
     /*
     |--------------------------------------------------------------------------
@@ -212,7 +212,9 @@ return [
     |
     */
 
-    'sidebar_mini' => 'lg',
+    'sidebar_mini' => true,
+    'layout_fixed_sidebar' => true,
+
     'sidebar_collapse' => false,
     'sidebar_collapse_auto_size' => false,
     'sidebar_collapse_remember' => false,
@@ -296,11 +298,7 @@ return [
     |
     */
 'menu' => [
-    [
-        'type' => 'navbar-search',
-        'text' => 'search',
-        'topnav_right' => true,
-    ],
+
     [
         'type' => 'fullscreen-widget',
         'topnav_right' => true,
