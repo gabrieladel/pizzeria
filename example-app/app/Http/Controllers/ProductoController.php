@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
@@ -7,82 +8,72 @@ use Illuminate\Http\Request;
 
 class ProductoController extends Controller
 {
-   public function index()
-   {
-      $productos = DB::select('SELECT * FROM productos ');
-      return view('producto.index', ['listado' => $productos]);
+    public function index()
+    {
+        $productos = DB::select('SELECT * FROM productos');
+        
+        return view('Producto.verProductos', ['listado' => $productos]);
+    }
 
-   }
-   public function show($id, $categoria, $nombre, $imagen, $precio)
-   {
-
-      return view('producto.show', ['producto' => $id, $categoria, $nombre, $imagen, $precio]);
-   }
-   /**
-    * Show the form for creating a new resource.
-    */
-   public function listar()
-   {
-      $productos = DB::select('SELECT * FROM productos ');
-      return view('producto.verProductos', ['listado' => $productos]);
-
-   }
-   public function create(Request $request)
-   {
-      try {
-         $sql = DB::insert(" insert into producto(categoria_id,nombre,imagen,descripcion,precio)values(?,?,?,?,?) ", [
-            $request->txtcategoria,
-            $request->txtnombre,
-            $request->txtimagen,
-            $request->txtdescripcion,
-            $request->txtprecio
-         ]);
-      } catch (\Throwable $th) {
-         $sql = 0;
-      }
-      if ($sql == true) {
-         return back()->with("correcto", "Producto registrado correctamente");
-      } else {
-         return back()->with("incorrecto", "Error al registrar");
-      }
-
-   }
-   public function update(Request $request)
-   {
-      try {
-         $sql = DB::update(" update productos set categoria_id=?,nombre=?,imagen=?,descripcion=?,precio=? where id=? ", [
-            $request->txtcategoria,
-            $request->txtnombre,
-            $request->txtimagen,
-            $request->txtdescripcion,
-            $request->txtprecio,
-            $request->txtid
-         ]);
-         if ($sql == 0) {
-            $sql = 1;
-         }
-      } catch (\Throwable $th) {
-         $sql = 0;
-      }
-      if ($sql == true) {
-         return back()->with("correcto", "Producto modificado correctamente");
-      } else {
-         return back()->with("incorrecto", "Error al modificar");
-      }
-   }
-   public function delete($id)
-   {
-      try {
-         $sql = DB::delete(" delete from productos where id=$id ");
-      } catch (\Throwable $th) {
-         $sql = 0;
-      }
-      if ($sql == true) {
-         return back()->with("correcto", "Producto eliminado correctamente");
-      } else {
-         return back()->with("incorrecto", "Error al eliminar");
-      }
-   }
-
+public function tienda()
+{
+    $productos = DB::select('SELECT * FROM productos');
+    return view('Producto.index', ['listado' => $productos]);
 }
-?>
+
+
+    /* Guarda un nuevo producto*/
+    public function store(Request $request)
+    {
+        try {
+          
+            $sql = DB::insert("INSERT INTO productos(categoria_id, nombre, imagen, descripcion, precio) VALUES(?,?,?,?,?)", [
+                $request->txtcategoria,
+                $request->txtnombre,
+                $request->txtimagen,
+                $request->txtdescripcion,
+                $request->txtprecio
+            ]);
+            return back()->with("correcto", "Producto registrado correctamente");
+        } catch (\Throwable $th) {
+            return back()->with("incorrecto", "Error al registrar: " . $th->getMessage());
+        }
+    }
+
+    /*Actualiza*/
+    public function update(Request $request, $id)
+    {
+        try {
+            $sql = DB::update("UPDATE productos SET categoria_id=?, nombre=?, imagen=?, descripcion=?, precio=? WHERE id=?", [
+                $request->txtcategoria,
+                $request->txtnombre,
+                $request->txtimagen,
+                $request->txtdescripcion,
+                $request->txtprecio,
+                $id // Usamos el ID que viene por la URL desde el formulario
+            ]);
+            
+            return back()->with("correcto", "Producto modificado correctamente");
+        } catch (\Throwable $th) {
+            return back()->with("incorrecto", "Error al modificar");
+        }
+    }
+
+    /* Elimina */
+    public function destroy($id)
+    {
+        try {
+            $sql = DB::delete("DELETE FROM productos WHERE id = ?", [$id]);
+            return back()->with("correcto", "Producto eliminado correctamente");
+        } catch (\Throwable $th) {
+            return back()->with("incorrecto", "Error al eliminar");
+        }
+    }
+
+   
+    public function show($id)
+    {
+        $producto = DB::select('SELECT * FROM productos WHERE id = ?', [$id]);
+        return view('Producto.show', ['producto' => $producto[0] ?? null]);
+    }
+}

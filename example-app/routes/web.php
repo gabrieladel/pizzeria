@@ -1,53 +1,53 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PersonaController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\PedidoController;
 use App\Http\Controllers\CartController;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
 
-//RUTAS PÚBLICAS
-Route::get('/', function () { return view('welcome'); });
-Route::get('/contacto', function () { return view('contacto'); });
+/*RUTAS PÚBLICAS*/
 
-Route::get('/producto', [ProductoController::class, 'index'])->name('productos.index');
+Route::view('/', 'welcome')->name('welcome');
+Route::view('/contacto', 'contacto')->name('contacto');
+Route::get('/productos', [ProductoController::class, 'tienda'])
+    ->name('productos.public');
 
+/* Carrito */
 Route::get('/carrito', [CartController::class, 'cart'])->name('cart.list');
-Route::post('/carrito-agregar', [CartController::class, 'add'])->name('cart.store');
-Route::post('/carrito-actualizar', [CartController::class, 'update'])->name('cart.update');
-Route::post('/carrito-eliminar', [CartController::class, 'remove'])->name('cart.remove');
-Route::post('/carrito-vaciar', [CartController::class, 'clear'])->name('cart.clear');
+Route::post('/carrito', [CartController::class, 'add'])->name('cart.store');
+Route::put('/carrito', [CartController::class, 'update'])->name('cart.update');
+Route::delete('/carrito', [CartController::class, 'remove'])->name('cart.remove');
+Route::delete('/carrito/vaciar', [CartController::class, 'clear'])->name('cart.clear');
 
-Route::get('/finalizar-pedido', [CartController::class, 'checkout'])->name('cart.checkout');
+Route::get('/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
 Route::post('/procesar-pedido', [CartController::class, 'processOrder'])->name('cart.process');
 
-//RUTAS DE AUTENTICACIÓN
+
+/*AUTENTICACIÓN*/
+
+
 Auth::routes();
+
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-//RUTAS DE ADMIN
-Route::group(['middleware' => 'auth'], function () {
-Route::get('/admin', function () { return view('panelAdmin'); });
-Route::get('/crearProducto', [ProductoController::class, 'create']);
-Route::get('/verProductos', [ProductoController::class, 'listar']);
-Route::post('/registrarProductos', [ProductoController::class, 'store'])->name("producto.create");
-Route::post('/modificarProductos', [ProductoController::class, 'update_admin'])->name("producto.update");
-Route::get('/eliminarProductos-{id}', [ProductoController::class, 'delete'])->name("producto.delete");
 
-Route::resource('home_productos', ProductoController::class);
-Route::get('/persona', [PersonaController::class, 'index']);
-Route::get('/Pedido', [PedidoController::class, 'index']);
-Route::get('/crearPedidos', [PedidoController::class, 'create']);
-Route::get('/verPedidos', [PedidoController::class, 'listar']);
-Route::resource('Pedido', PedidoController::class)->names('pedido');
-/* Route::resource('producto', ProductoController::class); */
+/*PANEL ADMIN*/
 
-Route::get('/crearUsuarios', [UserController::class, 'create']);
-Route::get('/verUsuarios', [UserController::class, 'listar']);
 
-Route::get('/pedido-eliminar/{id}', [PedidoController::class, 'delete'])->name('pedido.delete');
-Route::post('/pedido-actualizar', [PedidoController::class, 'update'])->name('pedido.update');
+Route::middleware(['auth'])->group(function () {
+
+    Route::view('/admin', 'panelAdmin')->name('admin.dashboard');
+    Route::get('verProductos', [ProductoController::class, 'index'])->name('productos.index');
+    Route::get('verPedidos', [PedidoController::class, 'index'])->name('pedidos.index');
+    Route::resource('productos-admin', ProductoController::class);
+    Route::resource('pedidos', PedidoController::class);
+    Route::resource('personas', PersonaController::class);
+    Route::resource('usuarios', UserController::class);
 
 });
 
