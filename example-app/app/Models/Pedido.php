@@ -3,26 +3,36 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Pedido extends Model
 {
-    protected $table = 'pedido';
-    protected $fillable = ['user_id', 'cliente_id', 'producto_id', 'vendedor_id', 'fecha', 'cantidad', 'total'];
-    public $timestamps = false;
+    protected $table = 'pedidos';
 
-    public function cliente(): BelongsTo
+    protected $fillable = [
+        'cliente_id',
+        'vendedor_id',
+        'fecha',
+        'total',
+        'estado'
+    ];
+
+    public function cliente()
     {
-        return $this->belongsTo(Cliente::class, 'cliente_id');
+        return $this->belongsTo(Cliente::class);
     }
 
-    public function producto(): BelongsTo
+    public function vendedor()
     {
-        return $this->belongsTo(Producto::class, 'producto_id');
+        return $this->belongsTo(Vendedor::class);
     }
 
-    public function vendedor(): BelongsTo
+    public function detalles()
     {
-        return $this->belongsTo(User::class, 'vendedor_id');
+        return $this->hasMany(DetallePedido::class);
+    }
+
+    public function factura()
+    {
+        return $this->hasOne(Factura::class);
     }
 }

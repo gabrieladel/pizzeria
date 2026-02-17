@@ -9,6 +9,8 @@ use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\PedidoController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\VendedorController;
 
 /*RUTAS PÚBLICAS*/
 
@@ -42,6 +44,8 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::middleware(['auth'])->group(function () {
 
     Route::view('/admin', 'panelAdmin')->name('admin.dashboard');
+    Route::resource('clientes', ClienteController::class);
+    Route::resource('vendedores', VendedorController::class);
     Route::get('verProductos', [ProductoController::class, 'index'])->name('productos.index');
     Route::get('verPedidos', [PedidoController::class, 'index'])->name('pedidos.index');
     Route::resource('productos-admin', ProductoController::class);

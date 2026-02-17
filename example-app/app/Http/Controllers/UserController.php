@@ -6,12 +6,35 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Listar usuarios
     public function index()
     {
-        //
+        $usuarios = User::with('persona')->get();
+        return view('usuarios.index', compact('usuarios'));
+    }
+
+    // Formulario de edición
+    public function edit($id)
+    {
+        $usuario = User::with('persona')->findOrFail($id);
+        return view('usuarios.edit', compact('usuario'));
+    }
+
+    // Actualizar usuario
+    public function update(Request $request, $id)
+    {
+        $usuario = User::findOrFail($id);
+
+        $request->validate([
+            'roles' => 'required'
+        ]);
+
+        $usuario->update([
+            'roles' => $request->roles
+        ]);
+
+        return redirect()->route('usuarios.index')
+                         ->with('success', 'Rol actualizado correctamente');
     }
 
     /**
@@ -38,25 +61,9 @@ class UserController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
+   
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
+    /*Remove the specified resource from storage.*/
     public function destroy(string $id)
     {
         //
