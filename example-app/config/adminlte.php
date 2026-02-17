@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => '#Pizzas',
+    'title' => 'AdminLTE 3',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -63,9 +63,9 @@ return [
     |
     */
 
-    'logo' => '<b>#Pizzas</b>admin',
-    'logo_img' => 'vendor/adminlte/dist/img/icono.png',
-    'logo_img_class' => 'brand-image img-circle elevation-3 ',
+    'logo' => '<b>Admin</b>LTE',
+    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+    'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
     'logo_img_alt' => 'Admin Logo',
@@ -86,7 +86,7 @@ return [
     'auth_logo' => [
         'enabled' => false,
         'img' => [
-            'path' => 'vendor/adminlte/dist/img/icono.png',
+            'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
             'alt' => 'Auth Logo',
             'class' => '',
             'width' => 50,
@@ -99,7 +99,10 @@ return [
     | Preloader Animation
     |--------------------------------------------------------------------------
     |
-    | Here you can change the preloader animation configuration.
+    | Here you can change the preloader animation configuration. Currently, two
+    | modes are supported: 'fullscreen' for a fullscreen preloader animation
+    | and 'cwrapper' to attach the preloader animation into the content-wrapper
+    | element and avoid overlapping it with the sidebars and the top navbar.
     |
     | For detailed instructions you can look the preloader section here:
     | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Basic-Configuration
@@ -108,8 +111,9 @@ return [
 
     'preloader' => [
         'enabled' => true,
+        'mode' => 'fullscreen',
         'img' => [
-            'path' => 'vendor/adminlte/dist/img/icono.png',
+            'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
             'alt' => 'AdminLTE Preloader Image',
             'effect' => 'animation__shake',
             'width' => 60,
@@ -260,22 +264,27 @@ return [
     'password_reset_url' => 'password/reset',
     'password_email_url' => 'password/email',
     'profile_url' => false,
+    'disable_darkmode_routes' => false,
 
     /*
     |--------------------------------------------------------------------------
-    | Laravel Mix
+    | Laravel Asset Bundling
     |--------------------------------------------------------------------------
     |
-    | Here we can enable the Laravel Mix option for the admin panel.
+    | Here we can enable the Laravel Asset Bundling option for the admin panel.
+    | Currently, the next modes are supported: 'mix', 'vite' and 'vite_js_only'.
+    | When using 'vite_js_only', it's expected that your CSS is imported using
+    | JavaScript. Typically, in your application's 'resources/js/app.js' file.
+    | If you are not using any of these, leave it as 'false'.
     |
-    | For detailed instructions you can look the laravel mix section here:
+    | For detailed instructions you can look the asset bundling section here:
     | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Other-Configuration
     |
     */
 
-    'enabled_laravel_mix' => false,
-    'laravel_mix_css_path' => 'css/app.css',
-    'laravel_mix_js_path' => 'js/app.js',
+    'laravel_asset_bundling' => false,
+    'laravel_css_path' => 'css/app.css',
+    'laravel_js_path' => 'js/app.js',
 
     /*
     |--------------------------------------------------------------------------
@@ -291,9 +300,13 @@ return [
 
     'menu' => [
         // Navbar items:
-      
         [
-            'type'         => 'fullscreen-widget',
+            'type' => 'navbar-search',
+            'text' => 'search',
+            'topnav_right' => true,
+        ],
+        [
+            'type' => 'fullscreen-widget',
             'topnav_right' => true,
         ],
 
@@ -304,8 +317,8 @@ return [
         ],
         [
             'text' => 'blog',
-            'url'  => 'admin/blog',
-            'can'  => 'manage-blog',
+            'url' => 'admin/blog',
+            'can' => 'manage-blog',
         ],
     
         ['header' => 'Categorias'],
@@ -324,8 +337,8 @@ return [
             'text' => 'Vendedores',
             'icon' => 'fas fa-fw fa-user-admin',
             'submenu' => [
-                
                 [
+<<<<<<< HEAD
                     'text' => 'Listado de vendedores',
                     'url'  => 'vendedores',
                 ],
@@ -342,45 +355,57 @@ return [
     ],
 ],
 
+=======
+                    'text' => 'level_one',
+                    'url' => '#',
+                ],
+                [
+                    'text' => 'level_one',
+                    'url' => '#',
+                    'submenu' => [
+                        [
+                            'text' => 'level_two',
+                            'url' => '#',
+                        ],
+                        [
+                            'text' => 'level_two',
+                            'url' => '#',
+                            'submenu' => [
+                                [
+                                    'text' => 'level_three',
+                                    'url' => '#',
+                                ],
+                                [
+                                    'text' => 'level_three',
+                                    'url' => '#',
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+                [
+                    'text' => 'level_one',
+                    'url' => '#',
+                ],
+            ],
+        ],
+        ['header' => 'labels'],
+>>>>>>> 3f44076019ae2d2d4439a8f3c07a1663a92d8cd9
         [
-            'text'    => 'Productos',
-            'icon'    => 'fas fa-fw fa-share',
-            'submenu' => [
-                
-                        [
-                            'text' => 'Listado de productos',
-                            'url'  => 'verProductos',
-                        ],
-                   
-                    ],
-         ],
-
-         [
-            'text'    => 'Pedidos',
-            'icon'    => 'fas fa-fw fa-share',
-            'submenu' => [
-                
-                        [
-                            'text' => 'Listado de pedidos',
-                            'url'  => 'verPedidos',
-                        ],
-                   
-                    ],
-         ],
-
-         [
-            'text'    => 'Facturas',
-            'icon'    => 'fas fa-fw fa-share',
-            'submenu' => [
-                
-                        [
-                            'text' => 'facturas',
-                            'url'  => 'verFacturas',
-                        ],
-                   
-                    ],
-         ],
-               
+            'text' => 'important',
+            'icon_color' => 'red',
+            'url' => '#',
+        ],
+        [
+            'text' => 'warning',
+            'icon_color' => 'yellow',
+            'url' => '#',
+        ],
+        [
+            'text' => 'information',
+            'icon_color' => 'cyan',
+            'url' => '#',
+        ],
     ],
 
     /*

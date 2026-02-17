@@ -65,7 +65,7 @@
                         
                         <li class="list-group-item d-flex justify-content-between align-items-center bg-light">
                             <span class="h5">TOTAL A PAGAR</span>
-                            <span class="h5 text-danger">${{ \Cart::total() }}</span>
+                            <span class="h5 text-danger">${{ \Cart::getTotal() }}</span>
                         </li>
                     </ul>
                 </div>

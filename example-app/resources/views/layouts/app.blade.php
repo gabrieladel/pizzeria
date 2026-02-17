@@ -21,14 +21,20 @@
     </style>
 </head>
 <body>
+
+
     @include('header')
+
     <div id="app">
         <main class="py-4 main-container">
             @yield('contenido')
         </main>
     </div>
 
+    @yield('footer')
+
     @include('footer')
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
 </body>

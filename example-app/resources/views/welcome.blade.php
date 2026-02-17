@@ -1,7 +1,6 @@
 @extends('layouts.app')
-
 @section('contenido')
-
+  
 <section id="inicio">
     <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
@@ -29,5 +28,5 @@
         </iframe>
     </div>
 </section>
-
 @endsection
+
