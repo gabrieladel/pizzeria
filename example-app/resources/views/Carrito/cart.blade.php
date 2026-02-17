@@ -21,8 +21,8 @@
                 @foreach($cartCollection as $item)
                     <tr>
                         <td>
-            @if($item->options->image)
-                <img src="imagenes/{{ $item->options->image }}" width="50">
+            @if($item->attributes?->image)
+                <img src="imagenes/{{ $item->attributes->image }}" width="50">
             @else
                 <img src="imagenes/default.png" width="50">
             @endif
@@ -44,7 +44,7 @@
         </table>
         
         <div class="text-right">
-            <h4>Total: ${{ \Cart::total() }}</h4>
+            <h4>Total: ${{ \Cart::getTotal() }}</h4>
             <a href="/producto" class="btn btn-dark">Seguir comprando</a>
 
     <a href="{{ route('cart.checkout') }}" class="btn btn-success btn-lg">

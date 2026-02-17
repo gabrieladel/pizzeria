@@ -15,7 +15,7 @@ class CartController extends Controller
     }
 
     public function cart()  {
-        $cartCollection = Cart::content();
+        $cartCollection = Cart::getContent();
         return view('Carrito.cart')->withTitle('E-COMMERCE STORE | CART')->with(['cartCollection' => $cartCollection]);
     }
 
@@ -33,9 +33,9 @@ class CartController extends Controller
             'qty'      => $request->quantity ?? 1, 
             'quantity' => $request->quantity,
             'weight'   => 0,
-             'options' => [
+             'attributes' => array (
             'image' => $request->img 
-        ]
+             )
         ));
         return redirect()->route('cart.list')->with('success_msg', '¡Item Agregado a su Carrito!');
     }
@@ -51,9 +51,9 @@ class CartController extends Controller
     }
 
     public function checkout() {
-    $cartCollection = \Cart::content();
+    $cartCollection = \Cart::getContent();
     
-    if (\Cart::count() == 0) {
+    if (\Cart::getTotalQuantity() == 0) {
         return redirect()->route('productos.index')->with('success_msg', 'Tu carrito está vacío');
     }
 
@@ -64,7 +64,7 @@ class CartController extends Controller
     try {
         $user = \Auth::user();
         
-        $persona = \DB::table('persona')->where('user_id', $user->id)->first();
+        $persona = \DB::table('personas')->where('user_id', $user->id)->first();
         if (!$persona) {
             return "Error: El usuario no tiene una Persona asociada en la tabla 'persona'";
         }
@@ -74,7 +74,7 @@ class CartController extends Controller
             return "Error: La persona no está registrada como Cliente en la tabla 'cliente'";
         }
 
-        $cartCollection = \Cart::content();
+        $cartCollection = \Cart::getContent();
         if ($cartCollection->isEmpty()) {
             return "Error: El carrito está vacío antes de guardar";
         }
@@ -86,12 +86,12 @@ class CartController extends Controller
                 'producto_id' => $item->id,
                 'vendedor_id' => 1,
                 'fecha'       => now(),
-                'cantidad'    => $item->qty,
-                'total'       => $item->price * $item->qty,
+                'cantidad'    => $item->quantity,
+                'total'       => $item->price * $item->quantity,
             ]);
         }
 
-        \Cart::destroy();
+        \Cart::clear();
 
         return redirect()->route('pedido.index')->with('success_msg', '¡Pedido guardado!');
 

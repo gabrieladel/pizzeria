@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1:3310
--- Tiempo de generación: 15-11-2023 a las 23:54:19
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 13-02-2026 a las 22:26:35
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.1.17
 
@@ -18,49 +18,98 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `db_pizzeria`
+-- Base de datos: `db_pizzeria_2`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `categoria`
+-- Estructura de tabla para la tabla `categorias`
 --
 
-CREATE TABLE `categoria` (
+CREATE TABLE `categorias` (
   `id` int(11) NOT NULL,
   `nombre` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `categoria`
+-- Volcado de datos para la tabla `categorias`
 --
 
-INSERT INTO `categoria` (`id`, `nombre`) VALUES
+INSERT INTO `categorias` (`id`, `nombre`) VALUES
 (1, 'Pizzas'),
 (2, 'Empanadas'),
-(3, 'Bebidas');
+(3, 'Bebidas'),
+(4, 'Pizzas Clásicas'),
+(5, 'Pizzas Especiales'),
+(6, 'Bebidas'),
+(7, 'Postres');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `cliente`
+-- Estructura de tabla para la tabla `clientes`
 --
 
-CREATE TABLE `cliente` (
-  `id` int(11) NOT NULL,
-  `cuil` int(11) DEFAULT NULL,
-  `persona` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+CREATE TABLE `clientes` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `persona_id` int(11) UNSIGNED NOT NULL,
+  `cuil` varchar(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Volcado de datos para la tabla `cliente`
+-- Volcado de datos para la tabla `clientes`
 --
 
-INSERT INTO `cliente` (`id`, `cuil`, `persona`) VALUES
-(1, 232856498, 1),
-(2, 28303365, 5),
-(3, 296563352, 4);
+INSERT INTO `clientes` (`id`, `persona_id`, `cuil`, `created_at`) VALUES
+(1, 3, '27309998881', '2026-02-13 20:48:17');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `detalle_pedidos`
+--
+
+CREATE TABLE `detalle_pedidos` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `pedido_id` bigint(20) UNSIGNED NOT NULL,
+  `producto_id` int(11) NOT NULL,
+  `cantidad` int(11) NOT NULL,
+  `precio_unitario` decimal(10,2) NOT NULL,
+  `subtotal` decimal(10,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Volcado de datos para la tabla `detalle_pedidos`
+--
+
+INSERT INTO `detalle_pedidos` (`id`, `pedido_id`, `producto_id`, `cantidad`, `precio_unitario`, `subtotal`) VALUES
+(5, 1, 34, 1, 8500.00, 8500.00);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `facturas`
+--
+
+CREATE TABLE `facturas` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `pedido_id` bigint(20) UNSIGNED NOT NULL,
+  `nro_factura` varchar(20) NOT NULL,
+  `tipo_factura` enum('A','B','C') NOT NULL,
+  `metodo_pago` varchar(50) NOT NULL,
+  `iva` decimal(10,2) DEFAULT 0.00,
+  `total_facturado` decimal(10,2) NOT NULL,
+  `fecha_emision` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Volcado de datos para la tabla `facturas`
+--
+
+INSERT INTO `facturas` (`id`, `pedido_id`, `nro_factura`, `tipo_factura`, `metodo_pago`, `iva`, `total_facturado`, `fecha_emision`) VALUES
+(1, 1, '0001-00000001', 'B', 'Efectivo', 2373.00, 11300.00, '2026-02-13 21:18:06');
 
 -- --------------------------------------------------------
 
@@ -125,44 +174,36 @@ CREATE TABLE `password_reset_tokens` (
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- --------------------------------------------------------
-
 --
--- Estructura de tabla para la tabla `pedido`
+-- Volcado de datos para la tabla `password_reset_tokens`
 --
 
-CREATE TABLE `pedido` (
-  `id` int(11) NOT NULL,
-  `vendedor` int(11) DEFAULT NULL,
-  `cliente` int(11) DEFAULT NULL,
-  `fecha` date DEFAULT NULL,
-  `producto` int(11) DEFAULT NULL,
-  `cantidad` int(11) DEFAULT NULL,
-  `total` decimal(8,2) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+INSERT INTO `password_reset_tokens` (`email`, `token`, `created_at`) VALUES
+('gabi23@live.com.ar', '$2y$10$1/Ijq1A/BaiLM63EikYMdOM67QSlX8Wq4y6NlDfbcz4VkvIq7mi5u', '2026-01-21 18:49:06');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `persona`
+-- Estructura de tabla para la tabla `pedidos`
 --
 
-CREATE TABLE `persona` (
-  `id` int(11) NOT NULL,
-  `nombre` varchar(100) DEFAULT NULL,
-  `telefono` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+CREATE TABLE `pedidos` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `cliente_id` int(11) UNSIGNED NOT NULL,
+  `vendedor_id` int(11) UNSIGNED DEFAULT NULL,
+  `fecha` datetime NOT NULL,
+  `total` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `estado` enum('pendiente','preparando','en camino','entregado','cancelado') DEFAULT 'pendiente',
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Volcado de datos para la tabla `persona`
+-- Volcado de datos para la tabla `pedidos`
 --
 
-INSERT INTO `persona` (`id`, `nombre`, `telefono`) VALUES
-(1, 'Valeria Decima', '2494668855'),
-(2, 'Macelo Rodriguez', '2235656898'),
-(3, 'Mauro Garcia', '2235558888'),
-(4, 'Maria Lopez', '2265855669'),
-(5, 'Lautaro Ibañez', '249455862552');
+INSERT INTO `pedidos` (`id`, `cliente_id`, `vendedor_id`, `fecha`, `total`, `estado`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, '2026-02-13 18:18:06', 11300.00, 'entregado', '2026-02-13 21:18:06', '2026-02-13 21:18:06');
 
 -- --------------------------------------------------------
 
@@ -186,36 +227,51 @@ CREATE TABLE `personal_access_tokens` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `producto`
+-- Estructura de tabla para la tabla `personas`
 --
 
-CREATE TABLE `producto` (
+CREATE TABLE `personas` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `nombre` varchar(100) NOT NULL,
+  `apellido` varchar(100) NOT NULL,
+  `telefono` varchar(100) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Volcado de datos para la tabla `personas`
+--
+
+INSERT INTO `personas` (`id`, `user_id`, `nombre`, `apellido`, `telefono`, `created_at`, `updated_at`) VALUES
+(1, 1, 'Admin', 'Sistema', '11223344', '2026-02-13 20:48:17', '2026-02-13 20:48:17'),
+(2, 2, 'Juan', 'Perez', '55667788', '2026-02-13 20:48:17', '2026-02-13 20:48:17'),
+(3, 3, 'Maria', 'Gomez', '99001122', '2026-02-13 20:48:17', '2026-02-13 20:48:17');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `productos`
+--
+
+CREATE TABLE `productos` (
   `id` int(11) NOT NULL,
   `categoria_id` int(11) NOT NULL,
   `nombre` varchar(100) DEFAULT NULL,
   `precio` decimal(8,2) DEFAULT NULL,
   `imagen` varchar(250) NOT NULL,
-  `descripción` varchar(150) NOT NULL
+  `descripcion` varchar(150) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `producto`
+-- Volcado de datos para la tabla `productos`
 --
 
-INSERT INTO `producto` (`id`, `categoria_id`, `nombre`, `precio`, `imagen`, `descripción`) VALUES
-(8, 1, 'Mozzarella', 1500.00, 'https://d3ugyf2ht6aenh.cloudfront.net/stores/001/133/466/products/copia-de-pizza-mozarella1-f27baa3e01887f9e6416299067526593-640-0.jpg', 'Pizza de masa fina, con mozzarella de 8 porciones...'),
-(9, 1, 'Napolitana', 1600.00, 'https://assets.elgourmet.com/wp-content/uploads/2023/03/8metlvp345_portada-pizza.jpg', 'pizza Napolitana grande de 8 porciones'),
-(10, 1, 'Pizza de pepperoni y mozzarella', 2500.00, 'https://images.hola.com/imagenes/cocina/recetas/20220208204252/pizza-pepperoni-mozzarella/1-48-890/pepperoni-pizza-abob-t.jpg', 'Pizza de pepperoni y mozzarella Pimienta Albahaca.'),
-(11, 1, 'Pizza de rúcula y jamón crudo', 2600.00, 'https://www.cucinare.tv/wp-content/uploads/2017/10/JAMON-CRUDO-Y-RUCULA-2.jpg', 'Pizza de rúcula y jamón crudo'),
-(12, 1, 'Pizza de champiñones', 1600.00, 'https://neofungi.com/wp-content/uploads/2015/08/PIZZA-SUPREMA.png ', 'Pizza de champiñones de 8 porciones.'),
-(13, 1, 'Pizza de Palmitos y Salsa Golf', 2600.00, 'https://img-global.cpcdn.com/recipes/3e3d26f3b28f76e2/1360x964cq70/pizza-de-palmito-y-salsa-golf-foto-principal.webp', 'Pizza de Palmitos y Salsa Golf de 8 porciones'),
-(14, 2, 'Empanadas de Jyq', 400.00, 'https://www.cucinare.tv/wp-content/uploads/2020/01/Empanadas-de-jamon-y-queso.jpg', 'Empanadas de Jyq al horno'),
-(15, 2, 'empanadas de carne', 400.00, 'https://img.bekiacocina.com/cocina/0000/265-h.jpg', 'empanadas de carne al horno'),
-(16, 2, 'Empanadas de pollo', 400.00, 'https://tumilanesa.com.ar/wp-content/uploads/2023/05/empanadas-pollo-jugosas.jpg', 'Empanadas de pollo al horno'),
-(19, 3, 'Gaseosa Sprite', 900.00, 'https://ardiaprod.vtexassets.com/arquivos/ids/259678/Gaseosa-Sprite-LimaLimon-225-Lts-_1.jpg?v=638295222781730000', 'Gaseosa Sprite Lima-Limón 2,25 Lts.'),
-(20, 3, 'Gaseosa Fanta ', 900.00, 'https://alberdisa.vteximg.com.br/arquivos/ids/156557-292-292/Gaseosa-Fanta-Naranja-x-3-Lt.jpg?v=637375295954430000', 'Gaseosa Fanta Naranja x 2250 Cc'),
-(21, 3, 'Gaseosa Coca-Cola', 800.00, 'https://ardiaprod.vtexassets.com/arquivos/ids/253437/Gaseosa-CocaCola-Sabor-Original-225-Lts-_1.jpg?v=638211302875400000', 'Gaseosa Coca-Cola Sabor Original 2,25 Lts.'),
-(28, 2, 'empanadas 2', 160.00, 'https://assets.unileversolutions.com/recipes-v2/209728.jpg', 'Empanadas de choclo y salsa blanca al horno');
+INSERT INTO `productos` (`id`, `categoria_id`, `nombre`, `precio`, `imagen`, `descripcion`) VALUES
+(34, 1, 'Muzzarella Familiar', 8500.00, '', '8 porciones, salsa artesanal'),
+(35, 1, 'Especial con Jamón', 9500.00, '', 'Con morrones y aceitunas'),
+(36, 2, 'Coca Cola 1.5L', 2800.00, '', 'Línea clásica');
 
 -- --------------------------------------------------------
 
@@ -227,14 +283,6 @@ CREATE TABLE `roles` (
   `id` int(11) NOT NULL,
   `nombre_rol` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `roles`
---
-
-INSERT INTO `roles` (`id`, `nombre_rol`) VALUES
-(1, 'Admin'),
-(2, 'Cliente');
 
 -- --------------------------------------------------------
 
@@ -259,44 +307,64 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `roles`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Gabriela', 'gabi23@live.com.ar', NULL, '$2y$10$1OVtzkAbu38Aj9odLNItMuIidx.Pk4IyuzDNtvHQWNt8.RJB.ON7q', 'admin', NULL, '2023-11-10 21:29:44', '2023-11-10 21:29:44'),
-(2, 'Gabriela', 'gabi2@live.com.ar', NULL, '$2y$10$bGbPprgA9fIWouQJI2T4nOqXkVklG08ovVFTwVn16vHRYvDlcITcK', NULL, NULL, '2023-11-16 00:20:13', '2023-11-16 00:20:13');
+(1, 'Admin Pizzeria', 'admin@pizza.com', NULL, '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', NULL, NULL, '2026-02-13 20:48:17', NULL),
+(2, 'Juan Vendedor', 'juan@pizza.com', NULL, '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', NULL, NULL, '2026-02-13 20:48:17', NULL),
+(3, 'Maria Cliente', 'maria@cliente.com', NULL, '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', NULL, NULL, '2026-02-13 20:48:17', NULL),
+(8, 'Admin Pizzeria', 'admin@pizzeria.com', NULL, 'hash_password_123', 'admin', NULL, NULL, NULL),
+(9, 'Juan Perez', 'juan.vendedor@pizzeria.com', NULL, 'hash_password_456', 'vendedor', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `vendedor`
+-- Estructura de tabla para la tabla `vendedores`
 --
 
-CREATE TABLE `vendedor` (
-  `id` int(11) NOT NULL,
-  `cuil` int(11) DEFAULT NULL,
-  `persona` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+CREATE TABLE `vendedores` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `persona_id` int(11) UNSIGNED NOT NULL,
+  `legajo` varchar(50) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Volcado de datos para la tabla `vendedor`
+-- Volcado de datos para la tabla `vendedores`
 --
 
-INSERT INTO `vendedor` (`id`, `cuil`, `persona`) VALUES
-(1, 336625589, 2);
+INSERT INTO `vendedores` (`id`, `persona_id`, `legajo`, `created_at`) VALUES
+(1, 2, 'LEG-001', '2026-02-13 20:48:17');
 
 --
 -- Índices para tablas volcadas
 --
 
 --
--- Indices de la tabla `categoria`
+-- Indices de la tabla `categorias`
 --
-ALTER TABLE `categoria`
+ALTER TABLE `categorias`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `cliente`
+-- Indices de la tabla `clientes`
 --
-ALTER TABLE `cliente`
+ALTER TABLE `clientes`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `persona` (`persona`);
+  ADD UNIQUE KEY `persona_id` (`persona_id`);
+
+--
+-- Indices de la tabla `detalle_pedidos`
+--
+ALTER TABLE `detalle_pedidos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `pedido_id` (`pedido_id`),
+  ADD KEY `fk_detalle_producto` (`producto_id`);
+
+--
+-- Indices de la tabla `facturas`
+--
+ALTER TABLE `facturas`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `pedido_id` (`pedido_id`),
+  ADD UNIQUE KEY `nro_factura` (`nro_factura`);
 
 --
 -- Indices de la tabla `failed_jobs`
@@ -324,19 +392,12 @@ ALTER TABLE `password_reset_tokens`
   ADD PRIMARY KEY (`email`);
 
 --
--- Indices de la tabla `pedido`
+-- Indices de la tabla `pedidos`
 --
-ALTER TABLE `pedido`
+ALTER TABLE `pedidos`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `vendedor` (`vendedor`),
-  ADD KEY `cliente` (`cliente`),
-  ADD KEY `producto` (`producto`);
-
---
--- Indices de la tabla `persona`
---
-ALTER TABLE `persona`
-  ADD PRIMARY KEY (`id`);
+  ADD KEY `cliente_id` (`cliente_id`),
+  ADD KEY `vendedor_id` (`vendedor_id`);
 
 --
 -- Indices de la tabla `personal_access_tokens`
@@ -347,9 +408,16 @@ ALTER TABLE `personal_access_tokens`
   ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
 
 --
--- Indices de la tabla `producto`
+-- Indices de la tabla `personas`
 --
-ALTER TABLE `producto`
+ALTER TABLE `personas`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
+-- Indices de la tabla `productos`
+--
+ALTER TABLE `productos`
   ADD PRIMARY KEY (`id`),
   ADD KEY `categoria_id` (`categoria_id`);
 
@@ -369,27 +437,39 @@ ALTER TABLE `users`
   ADD KEY `roles_2` (`roles`);
 
 --
--- Indices de la tabla `vendedor`
+-- Indices de la tabla `vendedores`
 --
-ALTER TABLE `vendedor`
+ALTER TABLE `vendedores`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `persona` (`persona`);
+  ADD UNIQUE KEY `persona_id` (`persona_id`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
--- AUTO_INCREMENT de la tabla `categoria`
+-- AUTO_INCREMENT de la tabla `categorias`
 --
-ALTER TABLE `categoria`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+ALTER TABLE `categorias`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT de la tabla `cliente`
+-- AUTO_INCREMENT de la tabla `clientes`
 --
-ALTER TABLE `cliente`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+ALTER TABLE `clientes`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de la tabla `detalle_pedidos`
+--
+ALTER TABLE `detalle_pedidos`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de la tabla `facturas`
+--
+ALTER TABLE `facturas`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `failed_jobs`
@@ -404,16 +484,10 @@ ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
--- AUTO_INCREMENT de la tabla `pedido`
+-- AUTO_INCREMENT de la tabla `pedidos`
 --
-ALTER TABLE `pedido`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT de la tabla `persona`
---
-ALTER TABLE `persona`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+ALTER TABLE `pedidos`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `personal_access_tokens`
@@ -422,10 +496,16 @@ ALTER TABLE `personal_access_tokens`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `producto`
+-- AUTO_INCREMENT de la tabla `personas`
 --
-ALTER TABLE `producto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+ALTER TABLE `personas`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT de la tabla `productos`
+--
+ALTER TABLE `productos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
@@ -437,43 +517,61 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT de la tabla `vendedor`
+-- AUTO_INCREMENT de la tabla `vendedores`
 --
-ALTER TABLE `vendedor`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `vendedores`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Restricciones para tablas volcadas
 --
 
 --
--- Filtros para la tabla `cliente`
+-- Filtros para la tabla `clientes`
 --
-ALTER TABLE `cliente`
-  ADD CONSTRAINT `cliente_ibfk_1` FOREIGN KEY (`persona`) REFERENCES `persona` (`id`);
+ALTER TABLE `clientes`
+  ADD CONSTRAINT `clientes_ibfk_1` FOREIGN KEY (`persona_id`) REFERENCES `personas` (`id`) ON DELETE CASCADE;
 
 --
--- Filtros para la tabla `pedido`
+-- Filtros para la tabla `detalle_pedidos`
 --
-ALTER TABLE `pedido`
-  ADD CONSTRAINT `pedido_ibfk_1` FOREIGN KEY (`vendedor`) REFERENCES `vendedor` (`id`),
-  ADD CONSTRAINT `pedido_ibfk_2` FOREIGN KEY (`cliente`) REFERENCES `cliente` (`id`),
-  ADD CONSTRAINT `pedido_ibfk_3` FOREIGN KEY (`producto`) REFERENCES `producto` (`id`);
+ALTER TABLE `detalle_pedidos`
+  ADD CONSTRAINT `detalle_pedidos_ibfk_1` FOREIGN KEY (`pedido_id`) REFERENCES `pedidos` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_detalle_producto` FOREIGN KEY (`producto_id`) REFERENCES `productos` (`id`);
 
 --
--- Filtros para la tabla `producto`
+-- Filtros para la tabla `facturas`
 --
-ALTER TABLE `producto`
-  ADD CONSTRAINT `producto_ibfk_1` FOREIGN KEY (`categoria_id`) REFERENCES `categoria` (`id`);
+ALTER TABLE `facturas`
+  ADD CONSTRAINT `facturas_ibfk_1` FOREIGN KEY (`pedido_id`) REFERENCES `pedidos` (`id`);
 
 --
--- Filtros para la tabla `vendedor`
+-- Filtros para la tabla `pedidos`
 --
-ALTER TABLE `vendedor`
-  ADD CONSTRAINT `vendedor_ibfk_1` FOREIGN KEY (`persona`) REFERENCES `persona` (`id`);
+ALTER TABLE `pedidos`
+  ADD CONSTRAINT `pedidos_ibfk_1` FOREIGN KEY (`cliente_id`) REFERENCES `clientes` (`id`),
+  ADD CONSTRAINT `pedidos_ibfk_2` FOREIGN KEY (`vendedor_id`) REFERENCES `vendedores` (`id`);
+
+--
+-- Filtros para la tabla `personas`
+--
+ALTER TABLE `personas`
+  ADD CONSTRAINT `personas_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
+-- Filtros para la tabla `productos`
+--
+ALTER TABLE `productos`
+  ADD CONSTRAINT `productos_ibfk_1` FOREIGN KEY (`categoria_id`) REFERENCES `categorias` (`id`);
+
+--
+-- Filtros para la tabla `vendedores`
+--
+ALTER TABLE `vendedores`
+  ADD CONSTRAINT `vendedores_ibfk_1` FOREIGN KEY (`persona_id`) REFERENCES `personas` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

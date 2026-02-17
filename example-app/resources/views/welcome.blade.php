@@ -30,12 +30,13 @@
                     <div class="carousel-caption d-none d-md-block">
                         <h5>Irresistibles</h5>
                         <p>Entra y mira las variedades que tenemos</p>
-                        <a href="producto" class="btn btn-light">ver variedades</a>
+                        <a href="producto" class="btn btn-light">Ver variedades</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+    
     <section id="video">
         <br>
         <h3 style="text-align: center; color:#ffffff">Asi preparamos tu pizza favorita</h3>

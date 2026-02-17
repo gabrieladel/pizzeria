@@ -25,9 +25,9 @@
                 <li class="nav-item">
             <a class="nav-link" href="{{ route('cart.list') }}">
                 <i class="fa fa-shopping-cart"></i> Carrito 
-                @if(\Cart::count() > 0)
+            @if(\Cart::getContent()->count() > 0)
                     <span class="badge badge-danger" style="background-color: red; border-radius: 50%; padding: 2px 6px;">
-                        {{ \Cart::count() }}
+                        {{ \Cart::getContent()->count() }}
                     </span>
                 @endif
             </a>

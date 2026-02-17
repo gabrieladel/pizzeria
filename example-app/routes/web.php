@@ -50,3 +50,7 @@ Route::get('/pedido-eliminar/{id}', [PedidoController::class, 'delete'])->name('
 Route::post('/pedido-actualizar', [PedidoController::class, 'update'])->name('pedido.update');
 
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
