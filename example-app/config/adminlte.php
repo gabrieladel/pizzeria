@@ -61,17 +61,17 @@ return [
     'classes_auth_btn' => 'btn-flat btn-primary',
 
 
-  'classes_body' => '',
-'classes_brand' => 'bg-danger',
-'classes_brand_text' => 'font-weight-bold',
-'classes_content_wrapper' => '',
-'classes_content_header' => 'bg-white shadow-sm',
-'classes_content' => '',
-'classes_sidebar' => 'sidebar-dark-danger elevation-4',
-'classes_sidebar_nav' => '',
-'classes_topnav' => 'navbar-dark navbar-danger',
-'classes_topnav_nav' => '',
-'classes_topnav_container' => '',
+    'classes_body' => '',
+    'classes_brand' => 'bg-danger',
+    'classes_brand_text' => 'font-weight-bold',
+    'classes_content_wrapper' => '',
+    'classes_content_header' => 'bg-white shadow-sm',
+    'classes_content' => '',
+    'classes_sidebar' => 'sidebar-dark-danger elevation-4',
+    'classes_sidebar_nav' => '',
+    'classes_topnav' => 'navbar-dark navbar-danger',
+    'classes_topnav_nav' => '',
+    'classes_topnav_container' => '',
 
 
     'sidebar_mini' => true,
@@ -125,17 +125,17 @@ return [
 
     ['header' => 'Categorias'],
 
-    // Dentro del array de 'menu'
-[
-    'text' => 'Gestión de Pedidos',
-    'route'  => 'pedidos.index', // Nombre de la ruta en web.php
-    'icon' => 'fas fa-shopping-basket',
-],
-[
-    'text' => 'Historial de Facturas',
-    'route'  => 'facturas.index', // Nombre de la ruta en web.php
-    'icon' => 'fas fa-file-invoice-dollar',
-],
+    // 'menu'
+    [
+        'text' => 'Gestión de Pedidos',
+        'route'  => 'pedidos.index', 
+        'icon' => 'fas fa-shopping-basket',
+    ],
+    [
+        'text' => 'Historial de Facturas',
+        'route'  => 'facturas.index', 
+        'icon' => 'fas fa-file-invoice-dollar',
+    ],
 
     [
         'text' => 'Usuarios',
@@ -177,28 +177,6 @@ return [
             [
                 'text' => 'Listado de productos',
                 'url' => 'verProductos',
-            ],
-        ],
-    ],
-
-    [
-        'text' => 'Pedidos',
-        'icon' => 'fas  fa-shopping-cart',
-        'submenu' => [
-            [
-                'text' => 'Listado de pedidos',
-                'route' => 'pedidos.index',
-            ],
-        ],
-    ],
-
-    [
-        'text' => 'Facturas',
-        'icon' => 'fas fa-file-invoice',
-        'submenu' => [
-            [
-                'text' => 'facturas',
-                'url' => 'verFacturas',
             ],
         ],
     ],
