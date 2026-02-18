@@ -175,7 +175,7 @@ return [
         'submenu' => [
             [
                 'text' => 'Listado de pedidos',
-                'url' => 'verPedidos',
+                'route' => 'pedidos.index',
             ],
         ],
     ],
