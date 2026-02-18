@@ -60,48 +60,60 @@ class CartController extends Controller
     return view('Carrito.checkout', compact('cartCollection'));
 }
 
-  public function processOrder(Request $request) {
+public function processOrder(Request $request) {
     try {
+        \DB::beginTransaction(); // Usamos transacciones para seguridad
+
         $user = \Auth::user();
-
-
         
+        // 1. Buscar la persona y el cliente
         $persona = \DB::table('personas')->where('user_id', $user->id)->first();
         if (!$persona) {
-            return "Error: El usuario no tiene una Persona asociada en la tabla 'persona'";
+            return "Error: El usuario no tiene una Persona asociada.";
         }
 
         $cliente = \DB::table('clientes')->where('persona_id', $persona->id)->first();
         if (!$cliente) {
-            return "Error: La persona no está registrada como Cliente en la tabla 'cliente'";
+            return "Error: La persona no está registrada como Cliente.";
         }
 
         $cartCollection = \Cart::getContent();
         if ($cartCollection->isEmpty()) {
-            return "Error: El carrito está vacío antes de guardar";
+            return "Error: El carrito está vacío.";
         }
 
+        // 2. CREAR UN SOLO PEDIDO PARA TODO EL CARRITO
+        $pedido = \App\Models\Pedido::create([
+            'user_id'     => $user->id,
+            'cliente_id'  => $cliente->id,
+            'vendedor_id' => 1, // Vendedor por defecto
+            'fecha'       => now(),
+            'estado'      => 'pendiente',
+            'total'       => \Cart::getTotal(), // El total de todo el carrito
+        ]);
+
+        // 3. GUARDAR LOS DETALLES (Esto es lo que faltaba para que se vea en el Panel)
         foreach($cartCollection as $item) {
-            \App\Models\Pedido::create([
-                'user_id'     => $user->id,
-                'cliente_id'  => $cliente->id,
-                'producto_id' => $item->id,
-                'vendedor_id' => 1,
-                'fecha'       => now(),
-                'cantidad'    => $item->quantity,
-                'total'       => $item->price * $item->quantity,
+            \App\Models\DetallePedido::create([
+                'pedido_id'       => $pedido->id,
+                'producto_id'     => $item->id,
+                'cantidad'        => $item->quantity,
+                'precio_unitario' => $item->price,
+                'subtotal'        => $item->price * $item->quantity, // El campo que MySQL te pedía
             ]);
         }
 
         \Cart::clear();
+        \DB::commit();
 
-        return redirect()->route('pedidos.index')->with('success_msg', '¡Pedido guardado!');
+        return redirect()->route('pedidos.index')->with('correcto', '¡Pedido guardado con éxito!');
 
     } catch (\Exception $e) {
-       
+        \DB::rollBack();
         return "Error crítico: " . $e->getMessage();
     }
 }
+    
     public function clear(){
         Cart::clear();
         return redirect()->route('cart.list')->with('success_msg', 'El carrito está vacío!');

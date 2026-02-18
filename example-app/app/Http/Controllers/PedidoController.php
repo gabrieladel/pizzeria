@@ -35,120 +35,87 @@ class PedidoController extends Controller
         return redirect()->route('pedidos.index');
     }
 
-    public function finalizarCompraProfesional(Request $request, $pedido_id)
-    {
-        $existeFactura = Factura::where('pedido_id', $pedido_id)->first();
-        if ($existeFactura) {
-            return back()->with('incorrecto', 'Este pedido ya fue facturado.');
-        }
+   public function finalizarCompraProfesional(Request $request, $pedido_id)
+{
+    // 1. Evitar duplicados
+    $existeFactura = Factura::where('pedido_id', $pedido_id)->first();
+    if ($existeFactura) {
+        return back()->with('incorrecto', 'Este pedido ya fue facturado.');
+    }
 
-        $pedido = Pedido::with(['cliente.persona', 'detalles.producto'])->findOrFail($pedido_id);
+    // 2. Cargar datos con sus relaciones
+    $pedido = Pedido::with(['cliente.persona', 'detalles.producto'])->findOrFail($pedido_id);
 
-        $subtotal = 0;
-        foreach ($pedido->detalles as $detalle) {
-            $subtotal += ($detalle->cantidad * $detalle->precio_unitario);
-        }
+    // 3. Cálculos de montos
+    $subtotal = 0;
+    foreach ($pedido->detalles as $detalle) {
+        $subtotal += ($detalle->cantidad * $detalle->precio_unitario);
+    }
+    
+    $iva = $subtotal * 0.21;
+    $total = $subtotal + $iva;
+
+    // 4. Generar número de factura
+    $ultimaFactura = Factura::orderBy('id', 'desc')->first();
+    $nroFactura = "0001-" . str_pad(($ultimaFactura ? $ultimaFactura->id + 1 : 1), 8, "0", STR_PAD_LEFT);
+
+    DB::beginTransaction();
+    try {
+        // 5. Guardar en Base de Datos
+        $factura = Factura::create([
+            'pedido_id'       => $pedido->id,
+            'nro_factura'     => $nroFactura,
+            'tipo_factura'    => $request->tipo_factura ?? 'B',
+            'metodo_pago'     => $request->metodo_pago ?? 'Efectivo',
+            'iva'             => $iva,
+            'total_facturado' => $total,
+            'fecha_emision'   => now(),
+        ]);
+
+        $pedido->update(['estado' => 'entregado']);
+
+        // 6. Generar y Guardar PDF físicamente
+        $data = [
+            'factura'         => $factura,
+            'pedido'          => $pedido,
+            'detallePedidos'  => $pedido->detalles,
+            'subtotal'        => $subtotal,
+            'iva'             => $iva,
+            'total'           => $total
+        ];
+
+        $pdf = Pdf::loadView('factura.pdf', $data);
+        $pdfPath = storage_path('app/public/facturas/factura_' . $nroFactura . '.pdf');
         
-        $iva = $subtotal * 0.21;
-        $total = $subtotal + $iva;
-
-        $ultimaFactura = Factura::orderBy('id', 'desc')->first();
-        $nroFactura = "0001-" . str_pad(($ultimaFactura ? $ultimaFactura->id + 1 : 1), 8, "0", STR_PAD_LEFT);
-
-        DB::beginTransaction();
-        try {
-            $factura = Factura::create([
-                'pedido_id'       => $pedido->id,
-                'nro_factura'     => $nroFactura,
-                'tipo_factura'    => $request->tipo_factura ?? 'B',
-                'metodo_pago'     => $request->metodo_pago ?? 'Efectivo',
-                'iva'             => $iva,
-                'total_facturado' => $total,
-                'fecha_emision'   => now(),
-            ]);
-
-            $pedido->update(['estado' => 'entregado']);
-
-            $data = [
-                'factura'         => $factura,
-                'pedido'          => $pedido,
-                'detallePedidos'  => $pedido->detalles,
-                'subtotal'        => $subtotal,
-                'iva'             => $iva,
-                'total'           => $total
-            ];
-
-            $pdf = Pdf::loadView('factura.pdf', $data);
-            $pdfPath = storage_path('app/public/facturas/factura_' . $nroFactura . '.pdf');
-            
-            if (!file_exists(dirname($pdfPath))) mkdir(dirname($pdfPath), 0755, true);
-            $pdf->save($pdfPath);
-
-            // Verificación de email para evitar error de encabezado vacío
-            if ($pedido->cliente && $pedido->cliente->persona && !empty($pedido->cliente->persona->email)) {
-                try {
-                    Mail::to($pedido->cliente->persona->email)->send(new FacturaMail($pedido, $pdfPath));
-                } catch (\Exception $e) {
-                    session()->flash('incorrecto', 'Factura creada pero el correo no pudo enviarse.');
-                }
-            } else {
-                session()->flash('incorrecto', 'Factura generada. El cliente no tiene un correo válido.');
-            }
-
-            DB::commit();
-            return $pdf->download('factura_' . $nroFactura . '.pdf');
-
-        } catch (Exception $e) {
-            DB::rollBack();
-            return back()->with('incorrecto', 'Error: ' . $e->getMessage());
+        if (!file_exists(dirname($pdfPath))) {
+            mkdir(dirname($pdfPath), 0755, true);
         }
+        $pdf->save($pdfPath);
+
+        // 7. ENVÍO DE EMAIL (Con try-catch interno para no bloquear la descarga)
+
+// Buscamos el email en el usuario vinculado a esa persona
+$usuario = \App\Models\User::find($pedido->cliente->persona->user_id);
+
+if ($usuario && !empty($usuario->email)) {
+    try {
+        Mail::to($usuario->email)->send(new FacturaMail($pedido, $pdfPath));
+    } catch (\Exception $e) {
+        \Log::error("Error al enviar factura a {$usuario->email}: " . $e->getMessage());
+        session()->flash('incorrecto', 'Factura generada, pero el correo falló.');
     }
+}
 
-    public function store(Request $request)
-    {
-        try {
-            DB::beginTransaction();
+        DB::commit();
 
-            if (!$request->productos || count($request->productos) == 0) {
-                return back()->with('incorrecto', 'Debe seleccionar al menos un producto.');
-            }
+        // 8. DESCARGAR EL ARCHIVO (Debe ser el return final)
+        return $pdf->download('factura_' . $nroFactura . '.pdf');
 
-            $pedido = Pedido::create([
-                'cliente_id' => $request->cliente_id,
-                'vendedor_id' => $request->vendedor_id,
-                'fecha' => now(),
-                'estado' => 'pendiente',
-                'total' => 0 
-            ]);
-
-            $totalPedido = 0;
-
-            foreach ($request->productos as $index => $producto_id) {
-                $producto = Producto::findOrFail($producto_id);
-                $cantidad = $request->cantidades[$index];
-                $subtotal = $producto->precio * $cantidad;
-
-                DetallePedido::create([
-                    'pedido_id' => $pedido->id,
-                    'producto_id' => $producto_id,
-                    'cantidad' => $cantidad,
-                    'precio_unitario' => $producto->precio,
-                    'subtotal' => $subtotal,
-                ]);
-
-                $totalPedido += $subtotal;
-            }
-
-            $pedido->update(['total' => $totalPedido]);
-
-            DB::commit();
-            return redirect()->route('pedidos.index')->with('correcto', 'Pedido creado con éxito.');
-
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return back()->with('incorrecto', 'Error al guardar: ' . $e->getMessage());
-        }
+    } catch (\Exception $e) {
+        DB::rollBack();
+        return back()->with('incorrecto', 'Error crítico: ' . $e->getMessage());
     }
+}
 
     public function update(Request $request, $id)
     {
