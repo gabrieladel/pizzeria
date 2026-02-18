@@ -1,121 +1,121 @@
 @extends('adminlte::page')
 
-@section('title', 'Listado de Pedidos')
-
-@section('content_header')
-    <h1>Gestión de Pedidos</h1>
-@stop
-
 @section('content')
-<div class="container-fluid">
+    <h2 class="p-3">Gestión Integral de Pedidos</h2>
 
-    {{-- Mensajes --}}
     @if (session("correcto"))
-        <div class="alert alert-success">
-            {{ session("correcto") }}
-        </div>
+        <div class="alert alert-success">{{ session("correcto") }}</div>
     @endif
-
     @if (session("incorrecto"))
-        <div class="alert alert-danger">
-            {{ session("incorrecto") }}
-        </div>
+        <div class="alert alert-danger">{{ session("incorrecto") }}</div>
     @endif
 
-    <div class="card">
-        <div class="card-header">
-            <h3 class="card-title">Lista de Pedidos Activos</h3>
-        </div>
-
-        <div class="card-body table-responsive p-0">
-            <table class="table table-hover text-nowrap">
-                <thead class="bg-dark text-white">
-                    <tr>
-                        <th>ID</th>
-                        <th>Cliente</th>
-                        <th>Productos</th>
-                        <th>Total</th>
-                        <th class="text-center">Acciones</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    @forelse($pedidos as $pedido)
+    <div class="p-4">
+        <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#modalRegistrar">
+            <i class="fas fa-plus"></i> Nuevo Pedido
+        </button>
+        
+        <div class="card">
+            <div class="card-body table-responsive">
+                <table class="table table-hover">
+                    <thead class="bg-dark text-white">
                         <tr>
-                            <td>{{ $pedido->id }}</td>
+                            <th>ID</th>
+                            <th>Estado</th> 
+                            <th>Fecha</th>
+                            <th>Cliente</th>
+                            <th>Productos</th>
+                            <th>Total (+IVA)</th>
+                            <th class="text-center">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($pedidos as $item)
+                            <tr>
+                                <td><span class="badge badge-secondary">#{{ $item->id }}</span></td>
+                                <td>
+                                    @if($item->estado == 'entregado')
+                                        <span class="badge badge-success">Facturado</span>
+                                    @else
+                                        <span class="badge badge-warning">Pendiente</span>
+                                    @endif
+                                </td>
+                                <td>{{ date('d/m/Y H:i', strtotime($item->fecha)) }}</td>
+                                <td>
+                                    <strong>{{ $item->cliente->persona->nombre ?? 'N/A' }} {{ $item->cliente->persona->apellido ?? '' }}</strong>
+                                </td>
+                                <td>
+                                    @foreach($item->detalles as $detalle)
+                                        <div class="small">
+                                            • {{ $detalle->producto->nombre ?? 'Producto borrado' }} 
+                                            <span class="badge badge-info">x{{ $detalle->cantidad }}</span>
+                                        </div>
+                                    @endforeach
+                                </td>
+                                <td><strong class="text-success">${{ number_format($item->total * 1.21, 2) }}</strong></td>
+                                
+                                <td class="text-center">
+                                    <div class="btn-group">
+                                        @if($item->estado != 'entregado')
+                                        <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#modalFinalizar{{ $item->id }}">
+                                            <i class="fas fa-check-circle"></i> Facturar
+                                        </button>
+                                        @endif
 
-                            <td>
-                                {{ $pedido->cliente->persona->nombre ?? 'Sin cliente' }}
-                                {{ $pedido->cliente->persona->apellido ?? '' }}
-                            </td>
+                                        <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalEditar{{ $item->id }}">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
 
-                            <td>
-                                @forelse($pedido->detalles as $detalle)
-                                    <div>
-                                        <strong>
-                                            {{ $detalle->producto->nombre ?? 'Sin producto' }}
-                                        </strong>
-                                        <br>
-                                        Cant: {{ $detalle->cantidad }}
-                                        <br>
-                                        ${{ $detalle->precio_unitario }}
-                                        <hr class="m-1">
+                                        <form action="{{ route('pedidos.destroy', $item->id) }}" method="POST" style="display:inline;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Eliminar?')">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
                                     </div>
-                                @empty
-                                    <span class="text-muted">Sin detalles</span>
-                                @endforelse
-                            </td>
+                                </td>
+                            </tr>
 
-                            <td>
-                                ${{ $pedido->total }}
-                            </td>
-
-                            <td class="text-center">
-
-                                {{-- Ver --}}
-                                <a href="{{ route('pedidos.show', $pedido->id) }}" 
-                                   class="btn btn-info btn-sm">
-                                    <i class="fas fa-eye"></i>
-                                </a>
-
-                                {{-- Editar --}}
-                                <a href="{{ route('pedidos.edit', $pedido->id) }}" 
-                                   class="btn btn-warning btn-sm">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-
-                                {{-- Eliminar --}}
-                                <form action="{{ route('pedidos.destroy', $pedido->id) }}" 
-                                      method="POST" 
-                                      style="display:inline;"
-                                      onsubmit="return confirm('¿Seguro que desea eliminar este pedido?')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </form>
-
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="5" class="text-center">
-                                No hay pedidos registrados.
-                            </td>
-                        </tr>
-                    @endforelse
-                </tbody>
-
-            </table>
+                            {{-- MODAL FINALIZAR (FACTURAR) --}}
+                            <div class="modal fade" id="modalFinalizar{{ $item->id }}" tabindex="-1" role="dialog">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header bg-success text-white">
+                                            <h5 class="modal-title">Finalizar Pedido #{{ $item->id }}</h5>
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>
+                                        <form action="{{ route('pedidos.finalizar', $item->id) }}" method="POST">
+                                            @csrf
+                                            <div class="modal-body">
+                                                <p>Cliente: <strong>{{ $item->cliente->persona->nombre ?? 'N/A' }}</strong></p>
+                                                <div class="form-group">
+                                                    <label>Método de Pago</label>
+                                                    <select name="metodo_pago" class="form-control">
+                                                        <option value="Efectivo">Efectivo</option>
+                                                        <option value="Transferencia">Transferencia</option>
+                                                        <option value="Tarjeta">Tarjeta</option>
+                                                    </select>
+                                                </div>
+                                                <div class="alert alert-info">
+                                                    Total con IVA: <strong>${{ number_format($item->total * 1.21, 2) }}</strong>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-success">Confirmar y Generar Factura</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-</div>
-@stop
 
-@section('js')
-<script>
-    console.log('Vista cargada correctamente.');
-</script>
+    {{-- MODAL REGISTRAR NUEVO --}}
+    <div class="modal fade" id="modalRegistrar" tabindex="-1" role="dialog">
+        </div>
 @stop
-

@@ -125,6 +125,18 @@ return [
 
     ['header' => 'Categorias'],
 
+    // Dentro del array de 'menu'
+[
+    'text' => 'Gestión de Pedidos',
+    'route'  => 'pedidos.index', // Nombre de la ruta en web.php
+    'icon' => 'fas fa-shopping-basket',
+],
+[
+    'text' => 'Historial de Facturas',
+    'route'  => 'facturas.index', // Nombre de la ruta en web.php
+    'icon' => 'fas fa-file-invoice-dollar',
+],
+
     [
         'text' => 'Usuarios',
         'icon' => 'fas fa-fw fa-user',

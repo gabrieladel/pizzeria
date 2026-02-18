@@ -26,11 +26,9 @@ class Pedido extends Model
         return $this->belongsTo(Vendedor::class);
     }
 
-    public function detalles()
-    {
-        return $this->hasMany(DetallePedido::class);
-    }
-
+    public function detalles() {
+    return $this->hasMany(DetallePedido::class, 'pedido_id');
+}
     public function factura()
     {
         return $this->hasOne(Factura::class);
