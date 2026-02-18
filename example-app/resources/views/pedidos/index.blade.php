@@ -116,6 +116,64 @@
     </div>
 
     {{-- MODAL REGISTRAR NUEVO --}}
-    <div class="modal fade" id="modalRegistrar" tabindex="-1" role="dialog">
+ {{-- MODAL REGISTRAR NUEVO --}}
+    <div class="modal fade" id="modalRegistrar" tabindex="-1" role="dialog" aria-labelledby="modalRegistrarLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="modalRegistrarLabel"><i class="fas fa-cart-plus"></i> Registrar Nuevo Pedido</h5>
+                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="{{ route('pedidos.store') }}" method="POST">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label>Cliente</label>
+                                <select name="cliente_id" class="form-control" required>
+                                    <option value="">Seleccione un cliente...</option>
+                                    {{-- Verifica que tu controlador envíe $clientes --}}
+                                    @foreach($clientes as $c)
+                                        <option value="{{ $c->id }}">{{ $c->persona->nombre }} {{ $c->persona->apellido }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>Vendedor</label>
+                                <select name="vendedor_id" class="form-control" required>
+                                    @foreach($vendedores as $v)
+                                        <option value="{{ $v->id }}">{{ $v->persona->nombre }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <hr>
+                        <h5>Productos</h5>
+                        <div id="contenedor-productos">
+                            <div class="row producto-fila mb-2">
+                                <div class="col-md-8">
+                                    <select name="productos[]" class="form-control" required>
+                                        <option value="">Seleccione producto...</option>
+                                        @foreach($productos as $p)
+                                            <option value="{{ $p->id }}">{{ $p->nombre }} - ${{ number_format($p->precio, 2) }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="number" name="cantidades[]" class="form-control" placeholder="Cant." min="1" value="1" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-primary">Guardar Pedido</button>
+                    </div>
+                </form>
+            </div>
         </div>
+    </div>
 @stop
