@@ -115,8 +115,7 @@
         </div>
     </div>
 
- 
- {{-- MODAL REGISTRAR NUEVO --}}
+    {{-- MODAL REGISTRAR NUEVO --}}
     <div class="modal fade" id="modalRegistrar" tabindex="-1" role="dialog" aria-labelledby="modalRegistrarLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -134,7 +133,6 @@
                                 <label>Cliente</label>
                                 <select name="cliente_id" class="form-control" required>
                                     <option value="">Seleccione un cliente...</option>
-                                    {{-- Verifica que tu controlador envíe $clientes --}}
                                     @foreach($clientes as $c)
                                         <option value="{{ $c->id }}">{{ $c->persona->nombre }} {{ $c->persona->apellido }}</option>
                                     @endforeach
@@ -151,10 +149,12 @@
                         </div>
 
                         <hr>
-                        <h5>Productos</h5>
+                        <h5><i class="fas fa-box"></i> Productos del Pedido</h5>
+                        
                         <div id="contenedor-productos">
+                            {{-- Fila Molde --}}
                             <div class="row producto-fila mb-2">
-                                <div class="col-md-8">
+                                <div class="col-md-7">
                                     <select name="productos[]" class="form-control" required>
                                         <option value="">Seleccione producto...</option>
                                         @foreach($productos as $p)
@@ -162,18 +162,56 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <input type="number" name="cantidades[]" class="form-control" placeholder="Cant." min="1" value="1" required>
+                                </div>
+                                <div class="col-md-2">
+                                    <button type="button" class="btn btn-danger btn-eliminar" >
+                                        <i class="fas fa-trash"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>
+
+                        <button type="button" id="btn-agregar-producto" class="btn btn-info btn-sm mt-2">
+                            <i class="fas fa-plus"></i> Agregar otro producto
+                        </button>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                        <button type="submit" class="btn btn-secondary">Guardar Pedido</button>
+                        <button type="submit" class="btn btn-primary">Guardar Pedido</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
+@stop
+
+@section('js')
+<script>
+    $(document).ready(function() {
+        const btnAgregar = $('#btn-agregar-producto');
+        const contenedor = $('#contenedor-productos');
+
+        btnAgregar.on('click', function() {
+            // Clonamos la primera fila
+            let nuevaFila = $('.producto-fila').first().clone();
+
+            // Limpiamos los valores de los inputs clonados
+            nuevaFila.find('select').val('');
+            nuevaFila.find('input').val('1');
+
+            // Mostramos el botón de eliminar en la nueva fila
+            nuevaFila.find('.btn-eliminar').show();
+
+            // Agregamos la nueva fila al contenedor
+            contenedor.append(nuevaFila);
+        });
+
+        // Evento para eliminar filas (usamos delegación de eventos)
+        $(document).on('click', '.btn-eliminar', function() {
+            $(this).closest('.producto-fila').remove();
+        });
+    });
+</script>
 @stop
