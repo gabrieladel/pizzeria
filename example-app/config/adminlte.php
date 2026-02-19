@@ -11,14 +11,14 @@ return [
     ],
 
     'logo' => '<b>#Pizzas</b>',
-    'logo_img' => 'imagenes/icono.png',
+    'logo_img' => 'imagenes/icono3.png',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xl',
 
     'auth_logo' => [
         'enabled' => false,
         'img' => [
-            'path' => 'imagenes/icono.png',
+            'path' => 'imagenes/icono3.png',
             'class' => '',
             'width' => 50,
             'height' => 50,
@@ -30,7 +30,7 @@ return [
         'enabled' => true,
         'mode' => 'fullscreen',
         'img' => [
-            'path' => 'imagenes/icono.png',
+            'path' => 'imagenes/icono3.png',
          
             'width' => 60,
             'height' => 60,

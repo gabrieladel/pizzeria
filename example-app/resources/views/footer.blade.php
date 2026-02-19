@@ -10,7 +10,7 @@
                     style="color: white"></i></a>
         </div>
         <div>
-            <img src="{{ asset('imagenes/icono.png') }}" width="150" height="110" class="me-2" alt="">
+            <img src="{{ asset('imagenes/icono3.png') }}" width="150" height="110" class="me-2" alt="">
             <h4>#Pizzas</h4>
         </div>
         <small class="d-block mb-3">© 2023</small>
