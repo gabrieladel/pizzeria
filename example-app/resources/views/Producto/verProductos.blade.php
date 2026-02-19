@@ -96,8 +96,11 @@
                             <td>{{ $item->id }}</td>
                             <td>{{ $item->nombre }}</td>
                             <td>{{ $item->categoria_id }}</td>
-                            <td><img src="{{ $item->imagen }}" style="width: 4rem; height:2rem;"alt=""
-                                    srcset=""></td>
+                            <td>
+                            <img src="{{ asset('storage/productos/' . $item->imagen) }}" 
+         style="width: 4rem; height: auto; object-fit: cover;" 
+                            alt="Imagen de {{ $item->nombre }}">
+                          </td>
                             <td>{{ $item->descripcion }}</td>
                             <td>${{ $item->precio }}</td>
                             <td><a href="" data-bs-toggle="modal"

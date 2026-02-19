@@ -24,21 +24,18 @@ class CartController extends Controller
        
         return redirect()->route('cart.list')->with('success_msg', 'Producto eliminado!');
     }
-
-    public function add(Request $request){
-        Cart::add(array(
-            'id' => $request->id,
-            'name' => $request->nombre,
-            'price' => $request->precio,
-            'qty'      => $request->quantity ?? 1, 
-            'quantity' => $request->quantity,
-            'weight'   => 0,
-             'attributes' => array (
-            'image' => $request->img 
-             )
-        ));
-        return redirect()->route('cart.list')->with('success_msg', '¡Item Agregado a su Carrito!');
-    }
+public function add(Request $request){
+    Cart::add(array(
+        'id' => $request->id,
+        'name' => $request->nombre ?? $request->txtnombre, // Si no viene uno, usa el otro
+        'price' => $request->precio ?? $request->txtprecio,
+        'quantity' => $request->quantity ?? 1,
+        'attributes' => array(
+            'image' => $request->img ?? $request->txtimagen // Para que no se pierda la imagen
+        )
+    ));
+    return redirect()->route('cart.list')->with('success_msg', '¡Item Agregado!');
+}
 
     public function update(Request $request){
         Cart::update($request->id, array(
