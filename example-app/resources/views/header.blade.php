@@ -30,6 +30,17 @@
 
         <!-- Lado derecho -->
         <ul class="navbar-nav ms-auto align-items-center">
+          @auth
+    @if(Auth::user()->roles === 'admin')
+        <li class="nav-item">
+            <a class="nav-link text-white px-3 ml-2" 
+               href="{{ url('/admin') }}" 
+               style="background-color: #f79b08;">
+                <i class="fas fa-user-cog"></i> Panel Administrativo
+            </a>
+        </li>
+    @endif
+@endauth
 
           <!-- Carrito -->
           <li class="nav-item">
@@ -46,6 +57,7 @@
               @endif
             </a>
           </li>
+          
 
           @guest
               @if (Route::has('login'))
@@ -63,6 +75,8 @@
                   <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
                       {{ Auth::user()->name }}
                   </a>
+
+                  
                   <div class="dropdown-menu dropdown-menu-end">
                       <a class="dropdown-item" href="{{ route('logout') }}"
                          onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
