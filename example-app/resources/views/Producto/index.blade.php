@@ -27,7 +27,7 @@
 </style>
 
 <div class="container">
-    <h1 style="text-align: center; color:rgb(127, 26, 46); margin: 30px 0;">Variedad de #Pizzas</h1>
+    <h1 style="text-align: center; margin: 30px 0;">Variedad de #Pizzas</h1>
 
     <div class="d-flex flex-wrap justify-content-center" style="gap: 25px;">
 

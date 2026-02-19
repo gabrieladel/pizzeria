@@ -3,26 +3,18 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
     <title>#Pizzas</title>
-    
-    <link rel="dns-prefetch" href="//fonts.bunny.net">
+  <link rel="shortcut icon" href="{{ asset('imagenes/icono3.png') }}">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
-    
     <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"></script>
-
     <style>
-        body { background-color: #f8f9fa; }
+        body { background-color: #f79b08; }
         .main-container { min-height: 80vh; }
     </style>
 </head>
 <body>
-
-
     @include('header')
 
     <div id="app">
@@ -30,8 +22,6 @@
             @yield('contenido')
         </main>
     </div>
-
-    @yield('footer')
 
     @include('footer')
 

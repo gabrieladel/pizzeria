@@ -29,7 +29,7 @@
                     
                     <div class="text-center mb-5">
 
-                        <button type="submit" class="btn btn-primary mt-4"><i class="far fa-paper-plane"></i> &nbsp; ENVIAR</button>
+                        <button type="submit" class="btn mt-4" style="background-color: #d9534f; color: white;"><i class="far fa-paper-plane"></i> &nbsp; ENVIAR</button>
 
                     </div>
                 </div>
