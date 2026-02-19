@@ -5,14 +5,18 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\Models\Producto;
+use App\Models\Categoria;
 
 class ProductoController extends Controller
 {
     public function index()
     {
-        $productos = DB::select('SELECT * FROM productos');
+        $listado = Producto::all();
+        $categorias = Categoria::all(); // <--- 2. CARGAR LAS CATEGORÍAS
         
-        return view('Producto.verProductos', ['listado' => $productos]);
+        // 3. PASAR AMBAS VARIABLES A LA VISTA
+        return view('Producto.verProductos', compact('listado', 'categorias'));
     }
 
 public function tienda()
@@ -23,22 +27,24 @@ public function tienda()
 
 
     /* Guarda un nuevo producto*/
-    public function store(Request $request)
-    {
-        try {
-          
-            $sql = DB::insert("INSERT INTO productos(categoria_id, nombre, imagen, descripcion, precio) VALUES(?,?,?,?,?)", [
-                $request->txtcategoria,
-                $request->txtnombre,
-                $request->txtimagen,
-                $request->txtdescripcion,
-                $request->txtprecio
-            ]);
-            return back()->with("correcto", "Producto registrado correctamente");
-        } catch (\Throwable $th) {
-            return back()->with("incorrecto", "Error al registrar: " . $th->getMessage());
-        }
+   public function store(Request $request) {
+    $producto = new Producto();
+    $producto->nombre = $request->txtnombre;
+    $producto->categoria_id = $request->txtcategoria;
+    $producto->descripcion = $request->txtdescripcion;
+    $producto->precio = $request->txtprecio;
+
+    if ($request->hasFile('txtimagen')) {
+        // Guarda el archivo físico en storage/app/public
+        $path = $request->file('txtimagen')->store('public');
+        // Guarda solo el nombre en la BD
+        $producto->imagen = basename($path);
     }
+
+    $producto->save();
+    return back()->with("correcto", "Producto registrado");
+}
+
 
     /*Actualiza*/
     public function update(Request $request, $id)

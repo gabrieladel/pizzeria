@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Producto extends Model
 {
     protected $table = 'productos';
+    public $timestamps = false;
 
     protected $fillable = [
         'categoria_id',
@@ -25,4 +26,5 @@ class Producto extends Model
     {
         return $this->hasMany(DetallePedido::class);
     }
+    
 }
