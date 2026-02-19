@@ -15,11 +15,10 @@ class Vendedor extends Model
     ];
      public $timestamps = false;
 
-    public function persona()
-    {
-        return $this->belongsTo(Persona::class);
+   
+    public function persona() {
+        return $this->belongsTo(Persona::class, 'persona_id');
     }
-
     public function pedidos()
     {
         return $this->hasMany(Pedido::class);
