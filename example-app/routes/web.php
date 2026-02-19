@@ -28,6 +28,8 @@ Route::delete('/carrito/vaciar', [CartController::class, 'clear'])->name('cart.c
 
 Route::get('/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
 Route::post('/procesar-pedido', [CartController::class, 'processOrder'])->name('cart.process');
+Route::get('/gracias/{id}', [CartController::class, 'gracias'])->name('pedido.gracias');
+
 
 
 /* --- AUTENTICACIÓN --- */
@@ -35,6 +37,7 @@ Route::post('/procesar-pedido', [CartController::class, 'processOrder'])->name('
 Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+
 
 
 /* --- PANEL ADMINISTRATIVO (Protegido por Auth) --- */

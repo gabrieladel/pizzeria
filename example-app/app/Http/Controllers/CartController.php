@@ -103,13 +103,21 @@ public function processOrder(Request $request) {
         \Cart::clear();
         \DB::commit();
 
-        return redirect()->route('pedidos.index')->with('correcto', '¡Pedido guardado con éxito!');
+       return redirect()->route('pedido.gracias', $pedido->id);
+
 
     } catch (\Exception $e) {
         \DB::rollBack();
         return "Error crítico: " . $e->getMessage();
     }
 }
+
+    public function gracias($id)
+    {
+        $pedido = Pedido::findOrFail($id);
+        return view('pedidos.gracias', compact('pedido'));
+    }
+
     
     public function clear(){
         Cart::clear();
