@@ -57,7 +57,19 @@
                         <input type="hidden" name="nombre" value="{{ $item->nombre }}">
                         <input type="hidden" name="precio" value="{{ $item->precio }}">
                         <input type="hidden" name="img" value="{{ $item->imagen }}">
-                        <input type="hidden" name="quantity" value="1">
+                       
+
+                        <div class="d-flex align-items-center mb-2">
+                            <label class="me-2 mb-0">Cant:</label>
+                            <input 
+                                type="number" 
+                                name="quantity" 
+                                value="1" 
+                                min="1" 
+                                class="form-control form-control-sm" 
+                                style="width: 70px;"
+                            >
+                        </div>
                         
                         <div style="position: absolute; bottom: 15px; left: 15px; right: 15px;">
                             <button type="submit" class="btn btn-danger btn-pedir w-100" style="background-color: rgb(127, 26, 46); border: none; border-radius: 8px; font-weight: bold;">
