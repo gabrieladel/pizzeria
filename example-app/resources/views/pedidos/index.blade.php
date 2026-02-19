@@ -11,7 +11,7 @@
     @endif
 
     <div class="p-4">
-        <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#modalRegistrar">
+        <button type="button" class="btn btn-secondary mb-3" data-toggle="modal" data-target="#modalRegistrar">
             <i class="fas fa-plus"></i> Nuevo Pedido
         </button>
         
@@ -115,12 +115,12 @@
         </div>
     </div>
 
-    {{-- MODAL REGISTRAR NUEVO --}}
+ 
  {{-- MODAL REGISTRAR NUEVO --}}
     <div class="modal fade" id="modalRegistrar" tabindex="-1" role="dialog" aria-labelledby="modalRegistrarLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
-                <div class="modal-header bg-primary text-white">
+                <div class="modal-header bg-secondary text-white">
                     <h5 class="modal-title" id="modalRegistrarLabel"><i class="fas fa-cart-plus"></i> Registrar Nuevo Pedido</h5>
                     <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -170,7 +170,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                        <button type="submit" class="btn btn-primary">Guardar Pedido</button>
+                        <button type="submit" class="btn btn-secondary">Guardar Pedido</button>
                     </div>
                 </form>
             </div>
