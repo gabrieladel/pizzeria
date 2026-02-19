@@ -51,24 +51,46 @@
                 <div class="card-header bg-secondary text-white">
                     <h5>Resumen del Pedido</h5>
                 </div>
-                <div class="card-body">
-                    <ul class="list-group list-group-flush">
-                        @foreach($cartCollection as $item)
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <div>
-                                    <strong>{{ $item->name }}</strong><br>
-                                    <small class="text-muted">Cantidad: {{ $item->qty }}</small>
-                                </div>
-                                <span>${{ number_format($item->price * $item->qty, 2) }}</span>
-                            </li>
-                        @endforeach
-                        
-                        <li class="list-group-item d-flex justify-content-between align-items-center bg-light">
-                            <span class="h5">TOTAL A PAGAR</span>
-                            <span class="h5 text-danger">${{ \Cart::getTotal() }}</span>
-                        </li>
-                    </ul>
+               <div class="card-body">
+    @php
+        $subtotal = \Cart::getTotal();
+        $iva = $subtotal * 0.21;
+        $totalConIva = $subtotal * 1.21;
+    @endphp
+
+    <ul class="list-group list-group-flush">
+        @foreach($cartCollection as $item)
+            @php
+                $importe = $item->price * $item->quantity;
+            @endphp
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div>
+                    <strong>{{ $item->name }}</strong><br>
+                    <small class="text-muted">Cantidad: {{ $item->quantity }}</small>
                 </div>
+                <span>${{ number_format($importe, 2) }}</span>
+            </li>
+        @endforeach
+
+        <li class="list-group-item d-flex justify-content-between bg-light">
+            <span>Subtotal</span>
+            <span>${{ number_format($subtotal, 2) }}</span>
+        </li>
+
+        <li class="list-group-item d-flex justify-content-between">
+            <span>IVA (21%)</span>
+            <span>${{ number_format($iva, 2) }}</span>
+        </li>
+
+        <li class="list-group-item d-flex justify-content-between bg-light">
+            <span class="h5">TOTAL A PAGAR</span>
+            <span class="h5 text-danger">
+                ${{ number_format($totalConIva, 2) }}
+            </span>
+        </li>
+    </ul>
+</div>
+
             </div>
         </div>
     </div>
