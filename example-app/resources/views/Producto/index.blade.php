@@ -60,7 +60,7 @@
                        
 
                         <div class="d-flex align-items-center mb-2">
-                            <label class="me-2 mb-0">Cant:</label>
+                            <label class="me-2 mb-0">Cantidad:</label>
                             <input 
                                 type="number" 
                                 name="quantity" 
