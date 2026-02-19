@@ -35,6 +35,44 @@ class PedidoController extends Controller
         return redirect()->route('pedidos.index');
     }
 
+    public function store(Request $request)
+{
+    // 1. Crear el pedido base
+    $pedido = new \App\Models\Pedido();
+    $pedido->cliente_id = $request->cliente_id;
+    $pedido->vendedor_id = $request->vendedor_id;
+    $pedido->fecha = now();
+    $pedido->total = 0; // Se calculará sumando los productos
+    $pedido->save();
+
+    $totalPedido = 0;
+
+    // 2. Guardar los productos del detalle (los arrays que enviamos desde el modal)
+    if ($request->has('productos')) {
+        foreach ($request->productos as $key => $producto_id) {
+            $producto = \App\Models\Producto::find($producto_id);
+            $cantidad = $request->cantidades[$key];
+            $subtotal = $producto->precio * $cantidad;
+
+            \App\Models\DetallePedido::create([
+                'pedido_id' => $pedido->id,
+                'producto_id' => $producto_id,
+                'cantidad' => $cantidad,
+                'precio_unitario' => $producto->precio,
+                'subtotal' => $subtotal
+            ]);
+
+            $totalPedido += $subtotal;
+        }
+    }
+
+    // 3. Actualizar el total real del pedido
+    $pedido->update(['total' => $totalPedido]);
+
+    return back()->with("correcto", "¡Pedido #{$pedido->id} registrado con éxito!");
+}
+
+
    public function finalizarCompraProfesional(Request $request, $pedido_id)
 {
     // 1. Evitar duplicados
