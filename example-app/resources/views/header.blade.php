@@ -12,10 +12,9 @@
 
       <!-- Logo -->
       <a class="navbar-brand d-flex align-items-center" href="/">
-        <img src="imagenes/icono.png" width="70" height="70" class="me-2" alt="">
+        <img src="{{ asset('imagenes/icono.png') }}" width="70" height="70" class="me-2" alt="">
         <span class="fw-bold fs-4 text-warning">#Pizzas</span>
       </a>
-    
       <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
         <ul class="navbar-nav me-auto mt-2 mt-lg-0">
           <li class="nav-item">
