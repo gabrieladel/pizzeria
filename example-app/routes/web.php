@@ -30,31 +30,26 @@ Route::get('/checkout', [CartController::class, 'checkout'])->name('cart.checkou
 Route::post('/procesar-pedido', [CartController::class, 'processOrder'])->name('cart.process');
 Route::get('/gracias/{id}', [CartController::class, 'gracias'])->name('pedido.gracias');
 
-
-
 /* --- AUTENTICACIÓN --- */
 
 Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
+/* --- PANEL ADMINISTRATIVO (Protegido por Auth y Rol Admin) --- */
 
-
-/* --- PANEL ADMINISTRATIVO (Protegido por Auth) --- */
-
-Route::middleware(['auth'])->group(function () {
+// Agregamos 'admin' al middleware para validar el rol antes de entrar
+Route::middleware(['auth', 'admin'])->group(function () {
 
     // Dashboard principal del Admin
     Route::view('/admin', 'panelAdmin')->name('admin.dashboard');
 
     // --- SECCIÓN FACTURACIÓN ---
-
-Route::get('/verFacturas', [PedidoController::class, 'verFacturas'])->name('facturas.index');
+    Route::get('/verFacturas', [PedidoController::class, 'verFacturas'])->name('facturas.index');
     
     // Proceso para generar la factura desde el listado de pedidos
     Route::post('/pedidos/{id}/finalizar', [PedidoController::class, 'finalizarCompraProfesional'])
          ->name('pedidos.finalizar');
-
 
     // --- GESTIÓN DE RECURSOS ---
     Route::resource('clientes', ClienteController::class);
@@ -67,7 +62,6 @@ Route::get('/verFacturas', [PedidoController::class, 'verFacturas'])->name('fact
     Route::get('verProductos', [ProductoController::class, 'index'])->name('productos.index');
 
     // --- GESTIÓN DE PEDIDOS ---
-    // Maneja index, create, store, show, edit, update, destroy
     Route::resource('pedidos', PedidoController::class);
 
 });
