@@ -25,10 +25,12 @@ Route::post('/carrito', [CartController::class, 'add'])->name('cart.store');
 Route::put('/carrito', [CartController::class, 'update'])->name('cart.update');
 Route::delete('/carrito', [CartController::class, 'remove'])->name('cart.remove');
 Route::delete('/carrito/vaciar', [CartController::class, 'clear'])->name('cart.clear');
+
 Route::middleware(['auth'])->group(function () {
-Route::get('/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
-Route::post('/procesar-pedido', [CartController::class, 'processOrder'])->name('cart.process');
-Route::get('/gracias/{id}', [CartController::class, 'gracias'])->name('pedido.gracias');
+
+  Route::get('/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
+  Route::post('/procesar-pedido', [CartController::class, 'processOrder'])->name('cart.process');
+  Route::get('/gracias/{id}', [CartController::class, 'gracias'])->name('pedido.gracias');
 });
 /* --- AUTENTICACIÓN --- */
 
