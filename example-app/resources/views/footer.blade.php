@@ -1,6 +1,6 @@
 @yield('footer')
 <footer>
-    <hr> 
+    <hr>
     <div class="row text-center" style="background-color: black; color:white">
         <div>
             <h6>Seguinos en nuestras redes</h6>

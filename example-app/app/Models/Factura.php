@@ -9,7 +9,6 @@ class Factura extends Model
 {
     use HasFactory;
 
-    // 1. IMPORTANTE: Desactivar los timestamps automáticos
     public $timestamps = false; 
 
     // 2. Definir los campos que se pueden llenar
@@ -23,7 +22,7 @@ class Factura extends Model
         'fecha_emision'
     ];
 
-    // 3. Relación con el pedido (para sacar el nombre del cliente luego)
+    // 3. Relación con el pedido 
     public function pedido()
     {
         return $this->belongsTo(Pedido::class, 'pedido_id');

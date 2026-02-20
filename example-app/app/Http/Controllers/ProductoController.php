@@ -19,11 +19,11 @@ class ProductoController extends Controller
         return view('Producto.verProductos', compact('listado', 'categorias'));
     }
 
-public function tienda()
-{
-    $productos = DB::select('SELECT * FROM productos');
-    return view('Producto.index', ['listado' => $productos]);
-}
+    public function tienda()
+    {
+        $productos = DB::select('SELECT * FROM productos');
+        return view('Producto.index', ['listado' => $productos]);
+    }
 
 
     /* Guarda un nuevo producto*/

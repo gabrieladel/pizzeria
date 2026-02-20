@@ -69,7 +69,7 @@ class User extends Authenticatable
         return $this->cartItems()->with('product')->get();
     }
 
-public function persona() {
-    return $this->hasOne(Persona::class, 'user_id');
-}
+    public function persona() {
+        return $this->hasOne(Persona::class, 'user_id');
+    }
 }

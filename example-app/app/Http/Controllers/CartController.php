@@ -59,7 +59,7 @@ public function add(Request $request){
 
 public function processOrder(Request $request) {
     try {
-        \DB::beginTransaction(); // Usamos transacciones para seguridad
+        \DB::beginTransaction(); // transacciones para seguridad
 
         $user = \Auth::user();
         
@@ -83,20 +83,20 @@ public function processOrder(Request $request) {
         $pedido = \App\Models\Pedido::create([
             'user_id'     => $user->id,
             'cliente_id'  => $cliente->id,
-            'vendedor_id' => 1, // Vendedor por defecto
+            'vendedor_id' => 1, 
             'fecha'       => now(),
             'estado'      => 'pendiente',
-            'total'       => \Cart::getTotal(), // El total de todo el carrito
+            'total'       => \Cart::getTotal(), 
         ]);
 
-        // 3. GUARDAR LOS DETALLES (Esto es lo que faltaba para que se vea en el Panel)
+        // 3. GUARDAR LOS DETALLES 
         foreach($cartCollection as $item) {
             \App\Models\DetallePedido::create([
                 'pedido_id'       => $pedido->id,
                 'producto_id'     => $item->id,
                 'cantidad'        => $item->quantity,
                 'precio_unitario' => $item->price,
-                'subtotal'        => $item->price * $item->quantity, // El campo que MySQL te pedía
+                'subtotal'        => $item->price * $item->quantity, 
             ]);
         }
 
